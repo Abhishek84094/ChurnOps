@@ -1,0 +1,66 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# MLflow (runs are local, not committed)
+mlruns/
+
+# DVC cache (large files)
+.dvc/cache/
+.dvc/tmp/
+
+# Data (tracked by DVC, not git)
+data/*.csv
+data/raw/*.csv
+data/interim/*.csv
+data/processed/*.csv
+data/processed/*.parquet
+
+# Models (tracked by MLflow/DVC)
+models/*.joblib
+models/*.pkl
+models/*.json
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Reports (generated, keep structure but not binaries)
+reports/eda/*.png
+reports/eda/*.svg
+reports/*.txt
+
+# Feast
+feature_repo/data/
+
+# Logs
+*.log
+logs/

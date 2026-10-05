@@ -1,0 +1,88 @@
+﻿# =============================================================================
+# ChurnOps — Central Pipeline Configuration
+# All tunable values live here. Code must never hard-code these.
+# =============================================================================
+
+# --- Paths -------------------------------------------------------------------
+paths:
+  raw_data:        data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv
+  interim_data:    data/interim/telco_clean.csv
+  train_data:      data/processed/train.csv
+  test_data:       data/processed/test.csv
+  models_dir:      models/
+  reports_dir:     reports/
+  eda_dir:         reports/eda/
+  mlruns_dir:      mlruns/
+
+# --- Reproducibility ---------------------------------------------------------
+random_state: 42
+
+# --- Dataset -----------------------------------------------------------------
+dataset:
+  target_column: Churn
+  id_column: customerID
+  expected_min_rows: 5000
+  expected_min_cols: 18
+
+# --- Split -------------------------------------------------------------------
+split:
+  test_size: 0.20
+  stratify: true
+
+# --- Cross-Validation --------------------------------------------------------
+cv:
+  n_splits: 5
+  shuffle: true
+
+# --- Imbalance handling ------------------------------------------------------
+imbalance:
+  strategy: class_weight
+
+# --- Preprocessing -----------------------------------------------------------
+preprocessing:
+  numeric_imputer_strategy: median
+  categorical_imputer_strategy: most_frequent
+  scaler: standard
+  ohe_handle_unknown: ignore
+
+# --- Hyperparameter search ---------------------------------------------------
+tuning:
+  n_iter: 30
+  cv_folds: 5
+  scoring: f1
+  n_jobs: -1
+
+# --- Overfitting / Underfitting thresholds -----------------------------------
+diagnosis:
+  gap_threshold: 0.08
+  low_performance_f1: 0.50
+
+# --- Iterative improvement ---------------------------------------------------
+improvement:
+  max_iterations: 5
+
+# --- Model registration gates ------------------------------------------------
+registry:
+  min_f1:              0.60
+  min_roc_auc:         0.75
+  min_recall:          0.60
+  max_generalization_gap: 0.08
+
+# --- Decision threshold ------------------------------------------------------
+threshold:
+  default: 0.50
+
+# --- MLflow ------------------------------------------------------------------
+mlflow:
+  experiment_name: ChurnOps_Model_Comparison
+  tracking_uri: sqlite:///mlruns/mlflow.db
+
+# --- DVC remote (local) ------------------------------------------------------
+dvc:
+  remote_name: local_remote
+  remote_path: /tmp/churnops_dvc_remote
+
+# --- Feature engineering -----------------------------------------------------
+features:
+  tenure_bins: [0, 12, 24, 48, 72]
+  tenure_labels: [new, growing, established, loyal]
