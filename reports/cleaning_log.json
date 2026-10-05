@@ -1,0 +1,82 @@
+{
+  "timestamp": "2026-10-05T08:03:05.386491+00:00",
+  "input_shape": [
+    7043,
+    21
+  ],
+  "transformations": [
+    {
+      "step": 1,
+      "name": "strip_whitespace",
+      "columns_modified": {
+        "TotalCharges": 11
+      },
+      "affected_rows": 11,
+      "rationale": "Removes invisible whitespace to prevent categorical matching failures and type errors."
+    },
+    {
+      "step": 2,
+      "name": "fix_totalcharges_blanks_and_type",
+      "column": "TotalCharges",
+      "affected_rows": 11,
+      "tenure_values": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "new_value": 0.0,
+      "new_dtype": "float64",
+      "rationale": "Empirical evidence proves all 11 customers with blank TotalCharges have tenure=0 (new registrations prior to first billing cycle). Imputing 0.0 represents physical reality with zero statistical data leakage."
+    },
+    {
+      "step": 3,
+      "name": "encode_target_binary",
+      "column": "Churn",
+      "mapping": {
+        "No": 0,
+        "Yes": 1
+      },
+      "affected_rows": 7043,
+      "raw_distribution": {
+        "No": 5174,
+        "Yes": 1869
+      },
+      "cleaned_distribution": {
+        "0": 5174,
+        "1": 1869
+      },
+      "rationale": "Maps categorical target to standard binary integer (0=Retained, 1=Churned) required by ML estimators."
+    },
+    {
+      "step": 4,
+      "name": "drop_identifier_column",
+      "column_dropped": "customerID",
+      "affected_rows": 7043,
+      "rationale": "Unique alphanumeric customer identifier carries 100% cardinality with zero generalizable predictive signal. Dropping prevents high-cardinality leakage and overfitting."
+    }
+  ],
+  "final_shape": [
+    7043,
+    20
+  ],
+  "validation_checks": {
+    "null_count": 0,
+    "duplicate_rows": 22,
+    "target_dtype": "int64",
+    "totalcharges_dtype": "float64",
+    "totalcharges_min": 0.0,
+    "totalcharges_max": 8684.8,
+    "target_distribution": {
+      "0": 5174,
+      "1": 1869
+    }
+  }
+}

@@ -56,3 +56,21 @@ stages:
       - reports/eda/05_numeric_correlation_matrix.png:
           cache: false
 
+  clean:
+    cmd: python src/data/cleaning.py
+    deps:
+      - src/data/cleaning.py
+      - src/utils/config.py
+      - src/utils/logging.py
+      - data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv
+      - reports/eda/eda_summary.json
+    params:
+      - params.yaml:
+          - paths
+          - dataset
+    outs:
+      - data/interim/telco_clean.csv
+      - reports/cleaning_log.json:
+          cache: false
+
+

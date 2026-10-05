@@ -12,7 +12,7 @@ Updated after every phase.
 | 1     | Data Ingestion                | ✅ Complete | 2026-10-05 |
 | 2     | Data Validation               | Complete | 2026-10-05 |
 | 3     | Exploratory Data Analysis     | ✅ Complete | 2026-10-05 |
-| 4     | Data Cleaning                 | ⏳ Pending  |            |
+| 4     | Data Cleaning                 | ✅ Complete | 2026-10-05 |
 | 5     | Feature Engineering           | ⏳ Pending  |            |
 | 6     | Feature Selection             | ⏳ Pending  |            |
 | 7     | Train/Validation/Test Split   | ⏳ Pending  |            |
@@ -209,4 +209,48 @@ MonthlyCharges, TotalCharges, Churn
 
 ### Honesty Status
 - Implemented locally: All metrics, plots, and figures computed from actual code execution on the Telco CSV.
+
+---
+
+## Phase 4 — Data Cleaning
+
+**Status:** ✅ Complete  
+**Date:** 2026-10-05
+
+### What was done
+- Implemented `src/data/cleaning.py` applying strictly deterministic, domain-verified cleaning transformations driven by EDA and validation evidence.
+- Stripped whitespace across all categorical/string columns.
+- Resolved `TotalCharges` blanks: imputed `0.0` for the 11 records with whitespace strings (verified to have `tenure == 0`, representing 0 elapsed billing cycles) and cast column to `float64`.
+- Encoded target `Churn` from `{'No', 'Yes'}` to binary integer `{'No': 0, 'Yes': 1}` (`int64`).
+- Dropped identifier column `customerID` (100% cardinality, zero predictive signal) to eliminate high-cardinality leakage risk.
+- Validated post-cleaning integrity: verified 0 null values, 0 duplicate rows, preserved target class distribution, and proper data types.
+- Generated interim dataset `data/interim/telco_clean.csv` (7,043 rows x 20 columns) while keeping raw data strictly immutable.
+- Generated structured audit log `reports/cleaning_log.json`.
+- Created and executed `notebooks/03_data_cleaning.ipynb` for cell-by-cell verification.
+- Added `clean` pipeline stage to `dvc.yaml`.
+
+### Real Numbers from Cleaning Execution
+| Transformation / Check | Metric / Result |
+|------------------------|-----------------|
+| Input Dataset Shape    | 7,043 rows x 21 columns |
+| Output Dataset Shape   | 7,043 rows x 20 columns |
+| Whitespace Stripped    | 11 rows in `TotalCharges` (0 other string columns had spaces) |
+| TotalCharges Blanks Fixed | 11 rows (100% with `tenure == 0`) imputed with `0.0`, dtype converted to `float64` |
+| `TotalCharges` Range   | Min: $0.00, Max: $8,684.80, Mean: $2,279.73, Std: $2,266.79 |
+| Target Encoding        | 7,043 rows mapped: `0` (Retained): 5,174, `1` (Churned): 1,869 |
+| Dropped Column         | `customerID` (7,043 rows affected) |
+| Total Post-Clean Nulls | 0 (100% complete) |
+| Duplicate Rows         | 0 |
+
+### Key Decisions (with reasoning)
+1. **Deterministic Imputation (0.0) for TotalCharges:**
+   - Because all 11 customers with missing TotalCharges are at `tenure = 0`, they have never received a monthly invoice. Imputing `0.0` reflects actual physical reality.
+   - Crucially, this does *not* fit or learn a sample statistic (unlike mean/median imputation), ensuring **zero data leakage** prior to splitting.
+2. **Dropping `customerID` from Interim Data:**
+   - An arbitrary ID string provides no generalizable signal to tree or linear models. Dropping it ensures downstream feature engineering and preprocessing cannot inadvertently fit on ID noise.
+3. **Leaving Categorical Normalization to Preprocessing Pipeline (Phase 8):**
+   - Sub-categories like `"No internet service"` vs `"No"` in add-on features (e.g. `TechSupport`) carry informative structural meaning (i.e. having no internet is distinct from having internet without tech support). They will be handled systematically in Phase 8 via one-hot encoding with `handle_unknown="ignore"`.
+
+### Honesty Status
+- Implemented locally: All transformations executed directly on the data; numbers verified against output files.
 
