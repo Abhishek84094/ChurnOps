@@ -13,7 +13,7 @@ Updated after every phase.
 | 2     | Data Validation               | Complete | 2026-10-05 |
 | 3     | Exploratory Data Analysis     | ✅ Complete | 2026-10-05 |
 | 4     | Data Cleaning                 | ✅ Complete | 2026-10-05 |
-| 5     | Feature Engineering           | ⏳ Pending  |            |
+| 5     | Feature Engineering           | ✅ Complete | 2026-10-05 |
 | 6     | Feature Selection             | ⏳ Pending  |            |
 | 7     | Train/Validation/Test Split   | ⏳ Pending  |            |
 | 8     | Preprocessing Pipeline        | ⏳ Pending  |            |
@@ -253,4 +253,53 @@ MonthlyCharges, TotalCharges, Churn
 
 ### Honesty Status
 - Implemented locally: All transformations executed directly on the data; numbers verified against output files.
+
+---
+
+## Phase 5 — Feature Engineering
+
+**Status:** ✅ Complete  
+**Date:** 2026-10-05
+
+### What was done
+- Implemented `DomainFeatureEngineer(BaseEstimator, TransformerMixin)` in `src/features/engineering.py` for leak-free scikit-learn pipeline integration.
+- Evaluated 8 candidate features with structured hypothesis documentation (`Feature`, `Reason`, `Expected benefit`, `Potential risk`).
+- Kept 7 domain features with proven churn rate disparity and empirical predictive value:
+  1. `tenure_cohort`: Binned tenure using `params.yaml` thresholds (`new`: 47.4% churn $\to$ `loyal`: 6.6% churn).
+  2. `total_services`: Integer count of active subscriptions across 8 services (43.8% churn for 0 services $\to$ 5.3% for 8 services).
+  3. `is_auto_pay`: Binary flag for automatic bank or credit card payment (16.0% auto churn vs 34.7% manual churn).
+  4. `has_fiber_optic`: Binary flag for high-churn infrastructure segment (41.9% fiber churn vs 14.5% non-fiber churn).
+  5. `has_security_or_techsupport`: Flag for key retention services (17.1% churn with support vs 33.4% without).
+  6. `has_family`: Household stickiness indicator for Partner + Dependents (14.2% family churn vs 30.6% non-family).
+  7. `is_month_to_month`: Contractual flight risk flag (42.7% m2m churn vs 6.8% term contract churn).
+- Rigorously tested and **REJECTED** 1 candidate:
+  - `charges_per_tenure` (or `charges_ratio`): Discarded because empirical correlation with Churn was near-zero ($r = 0.002$), `TotalCharges` is mathematically collinear with `(tenure * MonthlyCharges)`, and the feature introduced division-by-zero instability for new customers (`tenure == 0`).
+- Generated intermediate dataset `data/interim/telco_engineered.csv` (7,043 rows x 27 columns).
+- Emitted evaluation audit log `reports/feature_engineering_report.json`.
+- Created and executed `notebooks/04_feature_engineering.ipynb` with interactive visual displays.
+- Added `engineer_features` stage to `dvc.yaml`.
+
+### Real Numbers from Feature Engineering Execution
+| Candidate Feature | Status | Churn Rate Comparison | Target Corr / Association |
+|-------------------|--------|------------------------|---------------------------|
+| `tenure_cohort` | KEPT | `new`: 47.44%, `growing`: 28.71%, `established`: 20.39%, `loyal`: 6.61% | Monotonic drop across 4 lifecycle stages |
+| `total_services` | KEPT | 0 services: 43.75%, 4 services: 31.34%, 8 services: 5.29% | $r = -0.0877$ (strong negative retention effect) |
+| `is_auto_pay` | KEPT | Auto (1): 15.98% vs Manual (0): 34.67% | $r = -0.2104$ |
+| `has_fiber_optic` | KEPT | Fiber (1): 41.89% vs Non-fiber (0): 14.49% | $r = +0.3080$ |
+| `has_security_or_techsupport` | KEPT | With (1): 17.07% vs Without (0): 33.42% | $r = -0.1913$ |
+| `has_family` | KEPT | Family (1): 14.24% vs Non-family (0): 30.60% | $r = -0.1738$ |
+| `is_month_to_month` | KEPT | M2M (1): 42.71% vs Term (0): 6.76% | $r = +0.4051$ |
+| `charges_per_tenure` | REJECTED | N/A (near-identical distributions across classes) | $r = 0.0022$ (statistically non-existent signal) |
+
+### Key Decisions (with reasoning)
+1. **Packaging logic as a Scikit-Learn Transformer:**
+   - Writing `DomainFeatureEngineer` as a subclass of `BaseEstimator` and `TransformerMixin` allows it to be placed directly at the head of the Scikit-Learn `Pipeline`. This prevents feature computation drift between training and real-time production inference.
+2. **Rejection of charges_per_tenure:**
+   - Adhered strictly to Rule R4 (no blind assumptions). Rather than retaining an unhelpful ratio, empirical analysis demonstrated virtually zero correlation ($r = 0.002$) and severe instability at $tenure = 0$. Discarding it avoids noisy features.
+3. **Preserving Both Raw and Engineered Features for Phase 6:**
+   - The engineered features are passed alongside original features into Phase 6 (Feature Selection) where statistical redundancy (collinearity, VIF, permutation importance) will objectively decide which ones to feed to each estimator.
+
+### Honesty Status
+- Implemented locally: All code executed directly on the dataset; all correlation figures and churn rates computed from data.
+
 

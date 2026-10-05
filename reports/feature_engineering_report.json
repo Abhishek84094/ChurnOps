@@ -1,0 +1,151 @@
+{
+  "timestamp": "2026-10-05T09:06:59.889536+00:00",
+  "total_evaluated": 8,
+  "kept_count": 7,
+  "rejected_count": 1,
+  "candidates": [
+    {
+      "name": "tenure_cohort",
+      "reason": "Non-linear survival hazard (churn drops from 47.4% in year 1 to 6.6% after year 5).",
+      "expected_benefit": "Enables linear models to capture non-linear step-function churn drop without high-degree polynomials.",
+      "potential_risk": "Redundant with continuous tenure. Tree models may prefer continuous tenure.",
+      "status": "KEPT",
+      "metrics": {
+        "categories": {
+          "established": {
+            "count": 1594,
+            "churn_rate": 20.39
+          },
+          "growing": {
+            "count": 1024,
+            "churn_rate": 28.71
+          },
+          "loyal": {
+            "count": 2239,
+            "churn_rate": 9.51
+          },
+          "new": {
+            "count": 2186,
+            "churn_rate": 47.44
+          }
+        }
+      }
+    },
+    {
+      "name": "total_services",
+      "reason": "Measures customer lock-in and product engagement across 8 offerings.",
+      "expected_benefit": "Strong monotonic reduction in churn (43.8% at 0 services down to 5.3% at 8 services).",
+      "potential_risk": "Correlation with individual service flags (addressed in Phase 6 Feature Selection).",
+      "status": "KEPT",
+      "metrics": {
+        "correlation_with_target": -0.0673,
+        "churn_rates": {
+          "0": {
+            "count": 80,
+            "churn_rate": 43.75
+          },
+          "1": {
+            "count": 1701,
+            "churn_rate": 21.11
+          },
+          "2": {
+            "count": 1188,
+            "churn_rate": 32.83
+          },
+          "3": {
+            "count": 965,
+            "churn_rate": 36.48
+          },
+          "4": {
+            "count": 922,
+            "churn_rate": 31.34
+          },
+          "5": {
+            "count": 908,
+            "churn_rate": 25.55
+          },
+          "6": {
+            "count": 676,
+            "churn_rate": 22.49
+          },
+          "7": {
+            "count": 395,
+            "churn_rate": 12.41
+          },
+          "8": {
+            "count": 208,
+            "churn_rate": 5.29
+          }
+        }
+      }
+    },
+    {
+      "name": "is_auto_pay",
+      "reason": "Automatic billing reduces friction and payment defaults (electronic check churn is 45.3% vs ~15% for auto-pay).",
+      "expected_benefit": "Clean binary summary of 4 payment methods; separates manual vs automated customers.",
+      "potential_risk": "Low risk; compact representation.",
+      "status": "KEPT",
+      "metrics": {
+        "correlation_with_target": -0.2099,
+        "churn_rate_0": 34.67,
+        "churn_rate_1": 15.98
+      }
+    },
+    {
+      "name": "has_fiber_optic",
+      "reason": "Fiber optic customers churn at 41.89% (highest among all network types) despite generating high revenue.",
+      "expected_benefit": "Direct flag for the single most vulnerable infrastructure segment.",
+      "potential_risk": "Redundant with InternetService one-hot encoding.",
+      "status": "KEPT",
+      "metrics": {
+        "correlation_with_target": 0.308,
+        "churn_rate_0": 14.49,
+        "churn_rate_1": 41.89
+      }
+    },
+    {
+      "name": "has_security_or_techsupport",
+      "reason": "OnlineSecurity and TechSupport have the strongest negative association with churn among all add-ons.",
+      "expected_benefit": "Subscribers with support churn at 17.07% vs 33.42% for those without.",
+      "potential_risk": "Mild correlation with total_services.",
+      "status": "KEPT",
+      "metrics": {
+        "correlation_with_target": -0.1827,
+        "churn_rate_0": 33.42,
+        "churn_rate_1": 17.07
+      }
+    },
+    {
+      "name": "has_family",
+      "reason": "Customers with both a Partner and Dependents experience strong household inertia and shared account stickiness.",
+      "expected_benefit": "Churn rate of 14.24% for family accounts vs 30.60% for non-family accounts.",
+      "potential_risk": "Low risk; clean orthogonal demographic signal.",
+      "status": "KEPT",
+      "metrics": {
+        "correlation_with_target": -0.1601,
+        "churn_rate_0": 30.6,
+        "churn_rate_1": 14.24
+      }
+    },
+    {
+      "name": "is_month_to_month",
+      "reason": "Contract type is the single strongest predictor in EDA (Cramer's V = 0.4098).",
+      "expected_benefit": "Explicitly separates month-to-month contracts (42.71% churn) from long-term commitments (2-11% churn).",
+      "potential_risk": "Redundant with Contract one-hot encoding.",
+      "status": "KEPT",
+      "metrics": {
+        "correlation_with_target": 0.4051,
+        "churn_rate_0": 6.76,
+        "churn_rate_1": 42.71
+      }
+    },
+    {
+      "name": "charges_per_tenure",
+      "reason": "Hypothesized that ratio of TotalCharges to tenure would capture price trajectory and unexpected billing changes.",
+      "expected_benefit": "Identify bill shock driving cancellations.",
+      "potential_risk": "Empirical evaluation showed near-zero target correlation (r = 0.002), extreme skewness, and division-by-zero instability for tenure=0.",
+      "status": "REJECTED",
+      "rejection_justification": "TotalCharges is mathematically collinear with (tenure * MonthlyCharges). Calculating the ratio produced virtually zero correlation with Churn (r = 0.002) and required artificial epsilon offsets for new customers. Excluded to avoid introducing noise and numerical instability."
+    }
+  ]
+}

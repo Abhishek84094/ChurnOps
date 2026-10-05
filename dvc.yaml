@@ -73,4 +73,21 @@ stages:
       - reports/cleaning_log.json:
           cache: false
 
+  engineer_features:
+    cmd: python src/features/engineering.py
+    deps:
+      - src/features/engineering.py
+      - src/utils/config.py
+      - src/utils/logging.py
+      - data/interim/telco_clean.csv
+    params:
+      - params.yaml:
+          - paths
+          - features
+    outs:
+      - data/interim/telco_engineered.csv
+      - reports/feature_engineering_report.json:
+          cache: false
+
+
 
