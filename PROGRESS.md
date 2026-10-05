@@ -11,7 +11,7 @@ Updated after every phase.
 | 0     | Project Initialization        | ✅ Complete | 2026-10-05 |
 | 1     | Data Ingestion                | ✅ Complete | 2026-10-05 |
 | 2     | Data Validation               | Complete | 2026-10-05 |
-| 3     | Exploratory Data Analysis     | ⏳ Pending  |            |
+| 3     | Exploratory Data Analysis     | ✅ Complete | 2026-10-05 |
 | 4     | Data Cleaning                 | ⏳ Pending  |            |
 | 5     | Feature Engineering           | ⏳ Pending  |            |
 | 6     | Feature Selection             | ⏳ Pending  |            |
@@ -153,3 +153,60 @@ MonthlyCharges, TotalCharges, Churn
 
 ### Honesty Status
 - Implemented locally: all findings from real code execution.
+
+---
+
+## Phase 3 — Exploratory Data Analysis
+
+**Status:** ✅ Complete  
+**Date:** 2026-10-05
+
+### What was done
+- Implemented `src/data/eda.py` module computing univariate statistics, bivariate associations, Spearman rank correlation, and bias-corrected **Cramér's V** for categorical features.
+- Generated publication-quality figures saved into `reports/eda/`:
+  - `01_target_distribution.png`: Count barplot + Imbalance donut chart.
+  - `02_numeric_distributions.png`: Histograms with KDE + Churn-stratified boxplots for `tenure`, `MonthlyCharges`, `TotalCharges`.
+  - `03_cramers_v_ranking.png`: Ranking of all categorical features by Cramér's V association with Churn.
+  - `04_bivariate_key_drivers.png`: Churn rate breakdowns for Contract, InternetService, PaymentMethod, and SeniorCitizen.
+  - `05_numeric_correlation_matrix.png`: Pearson and Spearman correlation heatmaps.
+- Created and executed `notebooks/02_eda.ipynb` with interactive cell-by-cell walkthrough, inline figures, code commentary, and domain takeaways.
+- Produced `reports/eda/eda_summary.json` containing complete quantitative metadata.
+- Added `eda` stage to `dvc.yaml`.
+
+### Real Numbers from EDA Execution
+| Feature / Metric | Value |
+|------------------|-------|
+| Target Count (No) | 5,174 (73.46%) |
+| Target Count (Yes) | 1,869 (26.54%) |
+| Class Imbalance Ratio | 2.768 : 1 (No : Yes) |
+| Top 1 Categorical Driver | `Contract` (Cramér's V = 0.4098) |
+| Top 2 Categorical Driver | `OnlineSecurity` (Cramér's V = 0.3470) |
+| Top 3 Categorical Driver | `TechSupport` (Cramér's V = 0.3425) |
+| Top 4 Categorical Driver | `InternetService` (Cramér's V = 0.3220) |
+| Top 5 Categorical Driver | `PaymentMethod` (Cramér's V = 0.3027) |
+| Tenure Churners vs Non-Churners | Churn heavily concentrated in months 0-12 (median churn tenure ~10 mos vs ~38 mos retained) |
+| Month-to-Month Contract Churn Rate | 42.71% (vs 11.27% 1-yr, 2.83% 2-yr) |
+| Fiber Optic Internet Churn Rate | 41.89% (vs 18.96% DSL, 7.40% No internet) |
+| Electronic Check Churn Rate | 45.29% (vs 15.24% Credit card auto, 16.71% Bank transfer auto) |
+| TotalCharges Blanks Root Cause | Exactly 11 rows, 100% have `tenure = 0` (brand new signups, 0 full billing cycles) |
+
+### Key Decisions & Downstream Directives
+1. **Handling Class Imbalance:** Naive accuracy yields 73.46% with 0% churn recall. Downstream phases will enforce:
+   - Stratified train/test splits (Phase 7).
+   - Cost-sensitive weighting (`class_weight='balanced'`, `scale_pos_weight=2.77`) in Phase 9.
+   - Primary optimization on Recall, F1-Score, and PR-AUC (Phase 10, 12, 14).
+2. **Outlier Assessment:** IQR and range checks on `tenure` (0-72m), `MonthlyCharges` ($18.25-$118.75), and `TotalCharges` ($18.80-$8684.80) confirm all values represent valid telecommunication customers. Zero records will be deleted as "outliers" (retaining natural domain variation).
+3. **Data Cleaning Plan (Phase 4):**
+   - Deterministic imputation of `0.0` for `TotalCharges` where `tenure = 0`, then cast to `float64`.
+   - Drop `customerID` (unique identifier with no generalizable signal).
+   - Map `Churn` to integer (Yes -> 1, No -> 0).
+4. **Feature Engineering Candidates (Phase 5):**
+   - `tenure_cohort` (binned lifecycle cohorts).
+   - `is_auto_pay` (Credit Card / Bank Transfer automatic payment flag).
+   - `total_services` (count of add-on security/support services).
+   - `charges_per_tenure` (ratio of TotalCharges to tenure+1).
+   - `has_fiber_optic` (high-risk service flag).
+
+### Honesty Status
+- Implemented locally: All metrics, plots, and figures computed from actual code execution on the Telco CSV.
+

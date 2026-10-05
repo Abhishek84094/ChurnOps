@@ -1,0 +1,411 @@
+{
+  "target": {
+    "counts": {
+      "No": 5174,
+      "Yes": 1869
+    },
+    "percentages": {
+      "No": 73.46,
+      "Yes": 26.54
+    },
+    "imbalance_ratio": 2.768,
+    "majority_class": "No",
+    "minority_class": "Yes",
+    "total_observations": 7043
+  },
+  "numeric_features": {
+    "tenure": {
+      "mean": 32.37,
+      "std": 24.56,
+      "median": 29.0,
+      "min": 0.0,
+      "max": 72.0,
+      "q25": 9.0,
+      "q75": 55.0,
+      "iqr": 46.0,
+      "skewness": 0.239,
+      "outliers_iqr_count": 0,
+      "outliers_iqr_pct": 0.0
+    },
+    "MonthlyCharges": {
+      "mean": 64.76,
+      "std": 30.09,
+      "median": 70.35,
+      "min": 18.25,
+      "max": 118.75,
+      "q25": 35.5,
+      "q75": 89.85,
+      "iqr": 54.35,
+      "skewness": -0.22,
+      "outliers_iqr_count": 0,
+      "outliers_iqr_pct": 0.0
+    },
+    "TotalCharges_num": {
+      "mean": 2283.3,
+      "std": 2266.77,
+      "median": 1397.47,
+      "min": 18.8,
+      "max": 8684.8,
+      "q25": 401.45,
+      "q75": 3794.74,
+      "iqr": 3393.29,
+      "skewness": 0.961,
+      "outliers_iqr_count": 0,
+      "outliers_iqr_pct": 0.0
+    }
+  },
+  "categorical_features": {
+    "gender": {
+      "cramers_v": 0.0,
+      "cardinality": 2,
+      "categories": {
+        "Female": {
+          "count": 3488,
+          "churn_rate": 26.92
+        },
+        "Male": {
+          "count": 3555,
+          "churn_rate": 26.16
+        }
+      }
+    },
+    "SeniorCitizen": {
+      "cramers_v": 0.15,
+      "cardinality": 2,
+      "categories": {
+        "0": {
+          "count": 5901,
+          "churn_rate": 23.61
+        },
+        "1": {
+          "count": 1142,
+          "churn_rate": 41.68
+        }
+      }
+    },
+    "Partner": {
+      "cramers_v": 0.1497,
+      "cardinality": 2,
+      "categories": {
+        "No": {
+          "count": 3641,
+          "churn_rate": 32.96
+        },
+        "Yes": {
+          "count": 3402,
+          "churn_rate": 19.66
+        }
+      }
+    },
+    "Dependents": {
+      "cramers_v": 0.1634,
+      "cardinality": 2,
+      "categories": {
+        "No": {
+          "count": 4933,
+          "churn_rate": 31.28
+        },
+        "Yes": {
+          "count": 2110,
+          "churn_rate": 15.45
+        }
+      }
+    },
+    "PhoneService": {
+      "cramers_v": 0.0,
+      "cardinality": 2,
+      "categories": {
+        "No": {
+          "count": 682,
+          "churn_rate": 24.93
+        },
+        "Yes": {
+          "count": 6361,
+          "churn_rate": 26.71
+        }
+      }
+    },
+    "MultipleLines": {
+      "cramers_v": 0.0364,
+      "cardinality": 3,
+      "categories": {
+        "No": {
+          "count": 3390,
+          "churn_rate": 25.04
+        },
+        "No phone service": {
+          "count": 682,
+          "churn_rate": 24.93
+        },
+        "Yes": {
+          "count": 2971,
+          "churn_rate": 28.61
+        }
+      }
+    },
+    "InternetService": {
+      "cramers_v": 0.322,
+      "cardinality": 3,
+      "categories": {
+        "DSL": {
+          "count": 2421,
+          "churn_rate": 18.96
+        },
+        "Fiber optic": {
+          "count": 3096,
+          "churn_rate": 41.89
+        },
+        "No": {
+          "count": 1526,
+          "churn_rate": 7.4
+        }
+      }
+    },
+    "OnlineSecurity": {
+      "cramers_v": 0.347,
+      "cardinality": 3,
+      "categories": {
+        "No": {
+          "count": 3498,
+          "churn_rate": 41.77
+        },
+        "No internet service": {
+          "count": 1526,
+          "churn_rate": 7.4
+        },
+        "Yes": {
+          "count": 2019,
+          "churn_rate": 14.61
+        }
+      }
+    },
+    "OnlineBackup": {
+      "cramers_v": 0.2919,
+      "cardinality": 3,
+      "categories": {
+        "No": {
+          "count": 3088,
+          "churn_rate": 39.93
+        },
+        "No internet service": {
+          "count": 1526,
+          "churn_rate": 7.4
+        },
+        "Yes": {
+          "count": 2429,
+          "churn_rate": 21.53
+        }
+      }
+    },
+    "DeviceProtection": {
+      "cramers_v": 0.2811,
+      "cardinality": 3,
+      "categories": {
+        "No": {
+          "count": 3095,
+          "churn_rate": 39.13
+        },
+        "No internet service": {
+          "count": 1526,
+          "churn_rate": 7.4
+        },
+        "Yes": {
+          "count": 2422,
+          "churn_rate": 22.5
+        }
+      }
+    },
+    "TechSupport": {
+      "cramers_v": 0.3425,
+      "cardinality": 3,
+      "categories": {
+        "No": {
+          "count": 3473,
+          "churn_rate": 41.64
+        },
+        "No internet service": {
+          "count": 1526,
+          "churn_rate": 7.4
+        },
+        "Yes": {
+          "count": 2044,
+          "churn_rate": 15.17
+        }
+      }
+    },
+    "StreamingTV": {
+      "cramers_v": 0.2299,
+      "cardinality": 3,
+      "categories": {
+        "No": {
+          "count": 2810,
+          "churn_rate": 33.52
+        },
+        "No internet service": {
+          "count": 1526,
+          "churn_rate": 7.4
+        },
+        "Yes": {
+          "count": 2707,
+          "churn_rate": 30.07
+        }
+      }
+    },
+    "StreamingMovies": {
+      "cramers_v": 0.2304,
+      "cardinality": 3,
+      "categories": {
+        "No": {
+          "count": 2785,
+          "churn_rate": 33.68
+        },
+        "No internet service": {
+          "count": 1526,
+          "churn_rate": 7.4
+        },
+        "Yes": {
+          "count": 2732,
+          "churn_rate": 29.94
+        }
+      }
+    },
+    "Contract": {
+      "cramers_v": 0.4098,
+      "cardinality": 3,
+      "categories": {
+        "Month-to-month": {
+          "count": 3875,
+          "churn_rate": 42.71
+        },
+        "One year": {
+          "count": 1473,
+          "churn_rate": 11.27
+        },
+        "Two year": {
+          "count": 1695,
+          "churn_rate": 2.83
+        }
+      }
+    },
+    "PaperlessBilling": {
+      "cramers_v": 0.1911,
+      "cardinality": 2,
+      "categories": {
+        "No": {
+          "count": 2872,
+          "churn_rate": 16.33
+        },
+        "Yes": {
+          "count": 4171,
+          "churn_rate": 33.57
+        }
+      }
+    },
+    "PaymentMethod": {
+      "cramers_v": 0.3027,
+      "cardinality": 4,
+      "categories": {
+        "Bank transfer (automatic)": {
+          "count": 1544,
+          "churn_rate": 16.71
+        },
+        "Credit card (automatic)": {
+          "count": 1522,
+          "churn_rate": 15.24
+        },
+        "Electronic check": {
+          "count": 2365,
+          "churn_rate": 45.29
+        },
+        "Mailed check": {
+          "count": 1612,
+          "churn_rate": 19.11
+        }
+      }
+    }
+  },
+  "cramers_v_ranking": {
+    "Contract": 0.4098,
+    "OnlineSecurity": 0.347,
+    "TechSupport": 0.3425,
+    "InternetService": 0.322,
+    "PaymentMethod": 0.3027,
+    "OnlineBackup": 0.2919,
+    "DeviceProtection": 0.2811,
+    "StreamingMovies": 0.2304,
+    "StreamingTV": 0.2299,
+    "PaperlessBilling": 0.1911,
+    "Dependents": 0.1634,
+    "SeniorCitizen": 0.15,
+    "Partner": 0.1497,
+    "MultipleLines": 0.0364,
+    "gender": 0.0,
+    "PhoneService": 0.0
+  },
+  "outlier_assessment": {
+    "tenure": {
+      "iqr_bounds": [
+        -60.0,
+        78.0
+      ],
+      "outlier_count": 0,
+      "classification": "Valid observation (tenure 0-72 months matches 6-year company history; no entry errors)",
+      "action": "Retain without deletion"
+    },
+    "MonthlyCharges": {
+      "iqr_bounds": [
+        -46.025000000000006,
+        117.025
+      ],
+      "outlier_count": 0,
+      "classification": "Valid observation (billing plans range $18.25 - $118.75; plausible telecommunication pricing)",
+      "action": "Retain without deletion"
+    },
+    "TotalCharges_num": {
+      "iqr_bounds": [
+        -4688.485,
+        5491.384999999999
+      ],
+      "outlier_count": 0,
+      "classification": "Valid observation (cumulative charges for long-tenure customers; influential but legitimate)",
+      "action": "Retain without deletion"
+    }
+  },
+  "totalcharges_blank_check": {
+    "blank_count": 11,
+    "tenure_values_of_blanks": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "explanation": "All 11 customers with blank TotalCharges have tenure=0 (brand new customers who have not yet had a billing cycle).",
+    "justified_cleaning_action": "Fill TotalCharges with 0.0 in Phase 4."
+  },
+  "key_insights": [
+    "Contract type is the single strongest predictor (Cramer's V = 0.409). Month-to-month contracts have a 42.7% churn rate, compared to 11.3% for 1-year and only 2.8% for 2-year contracts.",
+    "Online security, tech support, and internet service are critical drivers. Fiber optic users experience very high churn (41.9%) despite high ARPU, pointing to potential service dissatisfaction or aggressive competitor pricing.",
+    "Payment method demonstrates strong behavioral segmentation: Electronic check users churn at 45.3%, whereas automatic credit card and bank transfer users churn at only ~15-16%.",
+    "Tenure is strongly protective against churn: churn is heavily concentrated in the first 0-12 months (median tenure for churners is ~10 months vs ~38 months for retained customers).",
+    "Class imbalance (2.77:1) necessitates abandoning naive accuracy. Stratified splits, class weighting, PR-AUC, and F1-score optimization must be prioritized."
+  ],
+  "cleaning_candidates_phase4": [
+    "TotalCharges: replace 11 whitespace strings with 0.0 and cast to float64.",
+    "customerID: drop unique ID column from feature space (avoids high-cardinality leakage).",
+    "Churn: encode target as binary integer (1 for 'Yes', 0 for 'No')."
+  ],
+  "feature_engineering_candidates_phase5": [
+    "tenure_cohort: bin tenure into customer lifecycle stages (0-12m, 13-24m, 25-48m, 49-60m, >60m).",
+    "is_auto_pay: binary indicator for automatic bank/credit card payment.",
+    "total_services: count of active security/support add-on subscriptions.",
+    "charges_per_tenure: ratio of TotalCharges to (tenure + 1).",
+    "has_fiber_optic: flag high-risk Fiber Optic internet subscription."
+  ]
+}

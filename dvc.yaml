@@ -1,4 +1,4 @@
-﻿stages:
+stages:
   ingest:
     cmd: python src/data/ingestion.py
     deps:
@@ -29,3 +29,30 @@
     outs:
       - reports/validation_report.json:
           cache: false
+
+  eda:
+    cmd: python src/data/eda.py
+    deps:
+      - src/data/eda.py
+      - src/utils/config.py
+      - src/utils/logging.py
+      - data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv
+      - reports/validation_report.json
+    params:
+      - params.yaml:
+          - paths
+          - dataset
+    outs:
+      - reports/eda/eda_summary.json:
+          cache: false
+      - reports/eda/01_target_distribution.png:
+          cache: false
+      - reports/eda/02_numeric_distributions.png:
+          cache: false
+      - reports/eda/03_cramers_v_ranking.png:
+          cache: false
+      - reports/eda/04_bivariate_key_drivers.png:
+          cache: false
+      - reports/eda/05_numeric_correlation_matrix.png:
+          cache: false
+

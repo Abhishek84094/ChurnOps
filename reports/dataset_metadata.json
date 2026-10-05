@@ -1,5 +1,5 @@
 {
-  "ingestion_timestamp": "2026-10-05T07:07:58.116406+00:00",
+  "ingestion_timestamp": "2026-10-05T07:23:27.405195+00:00",
   "source": {
     "dataset": "IBM Telco Customer Churn",
     "filename": "WA_Fn-UseC_-Telco-Customer-Churn.csv",
