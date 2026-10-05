@@ -13,3 +13,19 @@
     outs:
       - reports/dataset_metadata.json:
           cache: false
+
+  validate:
+    cmd: python src/data/validation.py
+    deps:
+      - src/data/validation.py
+      - src/utils/config.py
+      - src/utils/logging.py
+      - data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv
+      - reports/dataset_metadata.json
+    params:
+      - params.yaml:
+          - paths
+          - dataset
+    outs:
+      - reports/validation_report.json:
+          cache: false

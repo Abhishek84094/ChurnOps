@@ -1,0 +1,415 @@
+{
+  "timestamp": "2026-10-05T07:14:03.622251+00:00",
+  "shape": {
+    "rows": 7043,
+    "cols": 21
+  },
+  "schema": {
+    "expected_cols": [
+      "customerID",
+      "gender",
+      "SeniorCitizen",
+      "Partner",
+      "Dependents",
+      "tenure",
+      "PhoneService",
+      "MultipleLines",
+      "InternetService",
+      "OnlineSecurity",
+      "OnlineBackup",
+      "DeviceProtection",
+      "TechSupport",
+      "StreamingTV",
+      "StreamingMovies",
+      "Contract",
+      "PaperlessBilling",
+      "PaymentMethod",
+      "MonthlyCharges",
+      "TotalCharges",
+      "Churn"
+    ],
+    "actual_cols": [
+      "customerID",
+      "gender",
+      "SeniorCitizen",
+      "Partner",
+      "Dependents",
+      "tenure",
+      "PhoneService",
+      "MultipleLines",
+      "InternetService",
+      "OnlineSecurity",
+      "OnlineBackup",
+      "DeviceProtection",
+      "TechSupport",
+      "StreamingTV",
+      "StreamingMovies",
+      "Contract",
+      "PaperlessBilling",
+      "PaymentMethod",
+      "MonthlyCharges",
+      "TotalCharges",
+      "Churn"
+    ],
+    "missing_cols": [],
+    "extra_cols": []
+  },
+  "missing": {
+    "TotalCharges": {
+      "nan_count": 0,
+      "blank_count": 11,
+      "total": 11,
+      "pct": 0.1562
+    }
+  },
+  "duplicates": {
+    "duplicate_rows": 0,
+    "duplicate_ids": 0
+  },
+  "numeric": {
+    "tenure": {
+      "min": 0.0,
+      "max": 72.0,
+      "mean": 32.3711,
+      "median": 29.0,
+      "std": 24.5595,
+      "out_of_range": 0,
+      "non_numeric_strings": 0
+    },
+    "MonthlyCharges": {
+      "min": 18.25,
+      "max": 118.75,
+      "mean": 64.7617,
+      "median": 70.35,
+      "std": 30.09,
+      "out_of_range": 0,
+      "non_numeric_strings": 0
+    },
+    "TotalCharges": {
+      "min": 18.8,
+      "max": 8684.8,
+      "mean": 2283.3004,
+      "median": 1397.475,
+      "std": 2266.7714,
+      "out_of_range": 0,
+      "non_numeric_strings": 11
+    },
+    "SeniorCitizen": {
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.1621,
+      "median": 0.0,
+      "std": 0.3686,
+      "out_of_range": 0,
+      "non_numeric_strings": 0
+    }
+  },
+  "categorical": {
+    "gender": {
+      "expected_categories": [
+        "Female",
+        "Male"
+      ],
+      "actual_categories": [
+        "Female",
+        "Male"
+      ],
+      "unexpected": [],
+      "missing_expected": [],
+      "value_counts": {
+        "Male": 3555,
+        "Female": 3488
+      }
+    },
+    "MultipleLines": {
+      "expected_categories": [
+        "No",
+        "No phone service",
+        "Yes"
+      ],
+      "actual_categories": [
+        "No",
+        "No phone service",
+        "Yes"
+      ],
+      "unexpected": [],
+      "missing_expected": [],
+      "value_counts": {
+        "No": 3390,
+        "Yes": 2971,
+        "No phone service": 682
+      }
+    },
+    "InternetService": {
+      "expected_categories": [
+        "DSL",
+        "Fiber optic",
+        "No"
+      ],
+      "actual_categories": [
+        "DSL",
+        "Fiber optic",
+        "No"
+      ],
+      "unexpected": [],
+      "missing_expected": [],
+      "value_counts": {
+        "Fiber optic": 3096,
+        "DSL": 2421,
+        "No": 1526
+      }
+    },
+    "OnlineSecurity": {
+      "expected_categories": [
+        "No",
+        "No internet service",
+        "Yes"
+      ],
+      "actual_categories": [
+        "No",
+        "No internet service",
+        "Yes"
+      ],
+      "unexpected": [],
+      "missing_expected": [],
+      "value_counts": {
+        "No": 3498,
+        "Yes": 2019,
+        "No internet service": 1526
+      }
+    },
+    "OnlineBackup": {
+      "expected_categories": [
+        "No",
+        "No internet service",
+        "Yes"
+      ],
+      "actual_categories": [
+        "No",
+        "No internet service",
+        "Yes"
+      ],
+      "unexpected": [],
+      "missing_expected": [],
+      "value_counts": {
+        "No": 3088,
+        "Yes": 2429,
+        "No internet service": 1526
+      }
+    },
+    "DeviceProtection": {
+      "expected_categories": [
+        "No",
+        "No internet service",
+        "Yes"
+      ],
+      "actual_categories": [
+        "No",
+        "No internet service",
+        "Yes"
+      ],
+      "unexpected": [],
+      "missing_expected": [],
+      "value_counts": {
+        "No": 3095,
+        "Yes": 2422,
+        "No internet service": 1526
+      }
+    },
+    "TechSupport": {
+      "expected_categories": [
+        "No",
+        "No internet service",
+        "Yes"
+      ],
+      "actual_categories": [
+        "No",
+        "No internet service",
+        "Yes"
+      ],
+      "unexpected": [],
+      "missing_expected": [],
+      "value_counts": {
+        "No": 3473,
+        "Yes": 2044,
+        "No internet service": 1526
+      }
+    },
+    "StreamingTV": {
+      "expected_categories": [
+        "No",
+        "No internet service",
+        "Yes"
+      ],
+      "actual_categories": [
+        "No",
+        "No internet service",
+        "Yes"
+      ],
+      "unexpected": [],
+      "missing_expected": [],
+      "value_counts": {
+        "No": 2810,
+        "Yes": 2707,
+        "No internet service": 1526
+      }
+    },
+    "StreamingMovies": {
+      "expected_categories": [
+        "No",
+        "No internet service",
+        "Yes"
+      ],
+      "actual_categories": [
+        "No",
+        "No internet service",
+        "Yes"
+      ],
+      "unexpected": [],
+      "missing_expected": [],
+      "value_counts": {
+        "No": 2785,
+        "Yes": 2732,
+        "No internet service": 1526
+      }
+    },
+    "Contract": {
+      "expected_categories": [
+        "Month-to-month",
+        "One year",
+        "Two year"
+      ],
+      "actual_categories": [
+        "Month-to-month",
+        "One year",
+        "Two year"
+      ],
+      "unexpected": [],
+      "missing_expected": [],
+      "value_counts": {
+        "Month-to-month": 3875,
+        "Two year": 1695,
+        "One year": 1473
+      }
+    },
+    "PaymentMethod": {
+      "expected_categories": [
+        "Bank transfer (automatic)",
+        "Credit card (automatic)",
+        "Electronic check",
+        "Mailed check"
+      ],
+      "actual_categories": [
+        "Bank transfer (automatic)",
+        "Credit card (automatic)",
+        "Electronic check",
+        "Mailed check"
+      ],
+      "unexpected": [],
+      "missing_expected": [],
+      "value_counts": {
+        "Electronic check": 2365,
+        "Mailed check": 1612,
+        "Bank transfer (automatic)": 1544,
+        "Credit card (automatic)": 1522
+      }
+    },
+    "Partner": {
+      "expected_categories": [
+        "No",
+        "Yes"
+      ],
+      "actual_categories": [
+        "No",
+        "Yes"
+      ],
+      "unexpected": [],
+      "value_counts": {
+        "No": 3641,
+        "Yes": 3402
+      }
+    },
+    "Dependents": {
+      "expected_categories": [
+        "No",
+        "Yes"
+      ],
+      "actual_categories": [
+        "No",
+        "Yes"
+      ],
+      "unexpected": [],
+      "value_counts": {
+        "No": 4933,
+        "Yes": 2110
+      }
+    },
+    "PhoneService": {
+      "expected_categories": [
+        "No",
+        "Yes"
+      ],
+      "actual_categories": [
+        "No",
+        "Yes"
+      ],
+      "unexpected": [],
+      "value_counts": {
+        "Yes": 6361,
+        "No": 682
+      }
+    },
+    "PaperlessBilling": {
+      "expected_categories": [
+        "No",
+        "Yes"
+      ],
+      "actual_categories": [
+        "No",
+        "Yes"
+      ],
+      "unexpected": [],
+      "value_counts": {
+        "Yes": 4171,
+        "No": 2872
+      }
+    },
+    "Churn": {
+      "expected_categories": [
+        "No",
+        "Yes"
+      ],
+      "actual_categories": [
+        "No",
+        "Yes"
+      ],
+      "unexpected": [],
+      "value_counts": {
+        "No": 5174,
+        "Yes": 1869
+      }
+    }
+  },
+  "target": {
+    "column": "Churn",
+    "unique_values": [
+      "No",
+      "Yes"
+    ],
+    "invalid_values": [],
+    "null_count": 0,
+    "distribution": {
+      "No": 5174,
+      "Yes": 1869
+    },
+    "imbalance_ratio": 2.7683
+  },
+  "leakage_check": {
+    "found": []
+  },
+  "criticals": [],
+  "warnings": [
+    "TotalCharges: 11 blank strings (not NaN) - stored as text, needs conversion"
+  ],
+  "passed": true
+}

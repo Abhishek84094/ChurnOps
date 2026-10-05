@@ -10,7 +10,7 @@ Updated after every phase.
 |-------|-------------------------------|-------------|------------|
 | 0     | Project Initialization        | ✅ Complete | 2026-10-05 |
 | 1     | Data Ingestion                | ✅ Complete | 2026-10-05 |
-| 2     | Data Validation               | ⏳ Pending  |            |
+| 2     | Data Validation               | Complete | 2026-10-05 |
 | 3     | Exploratory Data Analysis     | ⏳ Pending  |            |
 | 4     | Data Cleaning                 | ⏳ Pending  |            |
 | 5     | Feature Engineering           | ⏳ Pending  |            |
@@ -121,3 +121,35 @@ MonthlyCharges, TotalCharges, Churn
 
 ### Honesty Status
 - Implemented locally: All numbers from actual code execution.
+
+## Phase 2 - Data Validation
+
+**Status:** Complete
+**Date:** 2026-10-05
+
+### Validation Result: PASSED (0 critical errors, 1 warning)
+
+### Real numbers from validation_report.json
+| Check                        | Result                                      |
+|------------------------------|---------------------------------------------|
+| Schema (21 expected cols)    | PASS - all present, 0 missing, 0 extra      |
+| Leakage columns              | PASS - none detected                        |
+| Duplicate rows               | PASS - 0                                    |
+| Duplicate customerIDs        | PASS - 0                                    |
+| Target Churn classes         | PASS - ["No", "Yes"] only                   |
+| Target null values           | PASS - 0                                    |
+| Imbalance ratio (No:Yes)     | 2.7683                                      |
+| tenure range [0, 72]         | PASS - mean=32.37, std=24.56                |
+| MonthlyCharges range [18.25, 118.75] | PASS - mean=64.76, std=30.09      |
+| TotalCharges range [18.8, 8684.8] | PASS (11 blank strings, WARN)          |
+| SeniorCitizen range [0, 1]   | PASS - mean=0.1621 (16.2% senior)           |
+| All categorical columns      | PASS - all values within expected sets      |
+| All binary Yes/No columns    | PASS                                        |
+
+### Only Warning (non-critical)
+- TotalCharges: 11 rows are blank strings (not NaN). These correspond to tenure=0
+  customers with no charges yet. Will be addressed in Phase 4 (deterministic fix).
+  Detected here, NOT silently fixed.
+
+### Honesty Status
+- Implemented locally: all findings from real code execution.
