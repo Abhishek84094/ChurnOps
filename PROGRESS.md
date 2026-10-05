@@ -1,4 +1,4 @@
-﻿# ChurnOps — PROGRESS LOG
+# ChurnOps — PROGRESS LOG
 Track phase status, key decisions, open questions, and findings.
 Updated after every phase.
 
@@ -9,7 +9,7 @@ Updated after every phase.
 | Phase | Name                          | Status      | Date       |
 |-------|-------------------------------|-------------|------------|
 | 0     | Project Initialization        | ✅ Complete | 2026-10-05 |
-| 1     | Data Ingestion                | ⏳ Pending  |            |
+| 1     | Data Ingestion                | ✅ Complete | 2026-10-05 |
 | 2     | Data Validation               | ⏳ Pending  |            |
 | 3     | Exploratory Data Analysis     | ⏳ Pending  |            |
 | 4     | Data Cleaning                 | ⏳ Pending  |            |
@@ -79,3 +79,45 @@ Updated after every phase.
 - Not yet: any model training, MLflow runs, DVC tracking
 
 ---
+
+## Phase 1 — Data Ingestion
+
+**Status:** Complete  
+**Date:** 2026-10-05
+
+### What was done
+- Implemented `src/data/ingestion.py` with integrity checks, SHA-256 hashing, and full summary statistics.
+- Ran ingestion on the real raw CSV and verified all numbers from code output (R1).
+- Produced `reports/dataset_metadata.json` with real numbers.
+- Added `ingest` stage to `dvc.yaml`.
+
+### Real numbers (verified from code execution, not fabricated)
+| Metric                  | Value                              |
+|-------------------------|-------------------------------------|
+| File                    | WA_Fn-UseC_-Telco-Customer-Churn.csv |
+| File size               | 954.59 KB (977,501 bytes)           |
+| SHA-256 (first 16 hex)  | 88be4b93fbe0cc83...                 |
+| Shape                   | 7,043 rows x 21 columns             |
+| Duplicate rows          | 0                                   |
+| Duplicate customerIDs   | 0                                   |
+| Churn=No                | 5,174 (73.46%)                      |
+| Churn=Yes               | 1,869 (26.54%)                      |
+| Missing values (NaN)    | 0 columns                           |
+| TotalCharges blanks     | 11 rows (blank string, not NaN)     |
+
+### Columns (21 total)
+customerID, gender, SeniorCitizen, Partner, Dependents, tenure,
+PhoneService, MultipleLines, InternetService, OnlineSecurity,
+OnlineBackup, DeviceProtection, TechSupport, StreamingTV,
+StreamingMovies, Contract, PaperlessBilling, PaymentMethod,
+MonthlyCharges, TotalCharges, Churn
+
+### Key findings
+- Confirmed standard IBM Telco (NOT extended version): no leakage columns detected.
+- TotalCharges: stored as object dtype, 11 blank strings (likely where tenure=0). Will investigate in Phase 2 and fix in Phase 4.
+- SeniorCitizen: stored as "0"/"1" strings (all others are "Yes"/"No"). Noted for cleaning.
+- Class imbalance: ~73.5% No vs ~26.5% Yes — moderate imbalance. Accuracy will be misleading; must use Recall/F1/PR-AUC.
+- No NaN missing values detected at pandas level; the "missing" TotalCharges data is disguised as blank strings.
+
+### Honesty Status
+- Implemented locally: All numbers from actual code execution.

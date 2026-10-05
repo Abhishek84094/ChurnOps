@@ -1,4 +1,4 @@
-﻿"""
+"""
 ChurnOps — Structured Logging
 Consistent log format across all src modules.
 """
@@ -17,9 +17,13 @@ def get_logger(name: str, level: int = logging.INFO) -> logging.Logger:
     """
     logger = logging.getLogger(name)
     if not logger.handlers:
-        handler = logging.StreamHandler(sys.stdout)
+        # Force UTF-8 on Windows to avoid cp1252 UnicodeEncodeError
+        import io
+        stream = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace") \
+            if hasattr(sys.stdout, "buffer") else sys.stdout
+        handler = logging.StreamHandler(stream)
         fmt = logging.Formatter(
-            "[%(asctime)s] %(levelname)-8s %(name)s — %(message)s",
+            "[%(asctime)s] %(levelname)-8s %(name)s - %(message)s",
             datefmt="%Y-%m-%d %H:%M:%S",
         )
         handler.setFormatter(fmt)

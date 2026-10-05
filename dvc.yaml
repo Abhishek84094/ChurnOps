@@ -1,5 +1,15 @@
-﻿# ChurnOps DVC Pipeline
-# Stages are progressively filled in across phases.
-# Run: dvc repro
-
-stages: {}
+﻿stages:
+  ingest:
+    cmd: python src/data/ingestion.py
+    deps:
+      - src/data/ingestion.py
+      - src/utils/config.py
+      - src/utils/logging.py
+      - data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv
+    params:
+      - params.yaml:
+          - paths
+          - dataset
+    outs:
+      - reports/dataset_metadata.json:
+          cache: false

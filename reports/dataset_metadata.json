@@ -1,0 +1,89 @@
+{
+  "ingestion_timestamp": "2026-10-05T07:07:58.116406+00:00",
+  "source": {
+    "dataset": "IBM Telco Customer Churn",
+    "filename": "WA_Fn-UseC_-Telco-Customer-Churn.csv",
+    "filepath": "C:\\Users\\Abhishek\\OneDrive\\Pictures\\Desktop\\ChurnOps\\data\\raw\\WA_Fn-UseC_-Telco-Customer-Churn.csv",
+    "url_note": "Kaggle: blastchar/telco-customer-churn (also IBM GitHub sample-data)"
+  },
+  "file": {
+    "size_bytes": 977501,
+    "size_kb": 954.59,
+    "sha256": "88be4b93fbe0cc83421af1c503794c97c342eca914c1576db7c276e61d61358a",
+    "extension": ".csv"
+  },
+  "shape": {
+    "rows": 7043,
+    "columns": 21
+  },
+  "columns": [
+    "customerID",
+    "gender",
+    "SeniorCitizen",
+    "Partner",
+    "Dependents",
+    "tenure",
+    "PhoneService",
+    "MultipleLines",
+    "InternetService",
+    "OnlineSecurity",
+    "OnlineBackup",
+    "DeviceProtection",
+    "TechSupport",
+    "StreamingTV",
+    "StreamingMovies",
+    "Contract",
+    "PaperlessBilling",
+    "PaymentMethod",
+    "MonthlyCharges",
+    "TotalCharges",
+    "Churn"
+  ],
+  "dtypes_as_read": {
+    "customerID": "object",
+    "gender": "object",
+    "SeniorCitizen": "object",
+    "Partner": "object",
+    "Dependents": "object",
+    "tenure": "object",
+    "PhoneService": "object",
+    "MultipleLines": "object",
+    "InternetService": "object",
+    "OnlineSecurity": "object",
+    "OnlineBackup": "object",
+    "DeviceProtection": "object",
+    "TechSupport": "object",
+    "StreamingTV": "object",
+    "StreamingMovies": "object",
+    "Contract": "object",
+    "PaperlessBilling": "object",
+    "PaymentMethod": "object",
+    "MonthlyCharges": "object",
+    "TotalCharges": "object",
+    "Churn": "object"
+  },
+  "missing_values": {},
+  "duplicates": {
+    "duplicate_rows": 0,
+    "duplicate_customer_ids": 0
+  },
+  "target": {
+    "column": "Churn",
+    "distribution": {
+      "No": {
+        "count": 5174,
+        "pct": 73.463
+      },
+      "Yes": {
+        "count": 1869,
+        "pct": 26.537
+      }
+    }
+  },
+  "id_column": "customerID",
+  "known_quirks": {
+    "TotalCharges_blank_strings": 11,
+    "SeniorCitizen_is_01_not_YesNo": true,
+    "leakage_risk_columns_present": []
+  }
+}
