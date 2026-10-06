@@ -16,7 +16,7 @@ Updated after every phase.
 | 5     | Feature Engineering           | ✅ Complete | 2026-10-05 |
 | 6     | Feature Selection             | ✅ Complete | 2026-10-06 |
 | 7     | Train/Validation/Test Split   | ✅ Complete | 2026-10-06 |
-| 8     | Preprocessing Pipeline        | ⏳ Pending  |            |
+| 8     | Preprocessing Pipeline        | ✅ Complete | 2026-10-06 |
 | 9     | Baseline Models               | ⏳ Pending  |            |
 | 10    | Cross-Validation              | ⏳ Pending  |            |
 | 11    | Overfitting/Underfitting Diag | ⏳ Pending  |            |
@@ -396,6 +396,54 @@ MonthlyCharges, TotalCharges, Churn
 
 ### Honesty Status
 - Implemented locally: All partitions and CV fold assignments generated directly from `data/interim/telco_clean.csv` via deterministic local execution.
+
+---
+
+## Phase 8 — Preprocessing Pipeline
+
+**Status:** ✅ Complete  
+**Date:** 2026-10-06
+
+### What was done
+- Implemented `src/data/preprocessing.py` creating a unified, production-grade Scikit-Learn `ColumnTransformer` and end-to-end `Pipeline`.
+- Built modular transformer components:
+  1. `DomainFeatureEngineer`: Automatically creates domain features (`tenure_cohort`, `total_services`, `is_auto_pay`, etc.) at the pipeline entrance.
+  2. Feature Exclusion: Systematically drops `['gender', 'PhoneService']` (justified in Phase 6).
+  3. Numeric Pipeline: Handles continuous features (`tenure`, `MonthlyCharges`, `TotalCharges`, `total_services`) with `SimpleImputer(strategy='median')` and `StandardScaler` (with option `scale_numeric=False` for tree estimators).
+  4. Categorical Pipeline: Handles 14 categoricals with `SimpleImputer(strategy='most_frequent')` and `OneHotEncoder(handle_unknown='ignore', sparse_output=False)`.
+  5. Passthrough: Retains 6 binary indicators (`SeniorCitizen`, `is_auto_pay`, `has_fiber_optic`, `has_security_or_techsupport`, `has_family`, `is_month_to_month`).
+- Fitted the complete preprocessing pipeline exclusively on `data/processed/train.csv` (5,634 rows).
+- Serialized the fitted pipeline object to `models/preprocessor.joblib`.
+- Exported audit report `reports/preprocessing_report.json`.
+- Created and executed `notebooks/07_preprocessing_pipeline.ipynb` with interactive visual displays and production single-record inference verification.
+- Added `preprocess` stage to `dvc.yaml`.
+
+### Real Numbers from Preprocessing Execution
+| Step / Transformer | Details / Values |
+|--------------------|------------------|
+| Input Features     | 19 raw/clean columns |
+| After Domain Engineering | 26 columns (7 domain features added) |
+| Dropped Features   | 2 columns (`gender`, `PhoneService`) |
+| Transformed Output Dimensions | 5,634 rows x 51 numeric columns |
+| Fitted Scaler Parameters (Train Split Only) | `tenure`: mean=32.48, std=24.57 |
+|                                             | `MonthlyCharges`: mean=64.93, std=30.14 |
+|                                             | `TotalCharges`: mean=2299.34, std=2279.00 |
+|                                             | `total_services`: mean=3.38, std=2.07 |
+| One-Hot Encoder Settings | `handle_unknown='ignore'`, `sparse_output=False` |
+| Serialization Target | `models/preprocessor.joblib` |
+| Test Set Leakage Check | ZERO ACCESS (test.csv locked, 0 rows touched) |
+
+### Key Decisions (with reasoning)
+1. **End-to-End Pipeline Unification:**
+   - Bundling `DomainFeatureEngineer` directly ahead of the `ColumnTransformer` ensures that incoming inference payloads at runtime (in FastAPI / Streamlit) require only the raw 19 customer fields. Feature engineering and encoding happen automatically inside `pipeline.predict()`, eliminating train-serve skew.
+2. **`handle_unknown='ignore'` Policy:**
+   - At production inference time, encountering previously unseen categorical levels will not throw fatal runtime exceptions; instead, unseen levels are mapped to all-zero one-hot vectors, ensuring system resilience.
+3. **Strict Parameter Fitting Boundary (Rule R3):**
+   - Imputer medians, scaler means, standard deviations, and one-hot vocabularies were learned strictly on `data/processed/train.csv`. The test set was untouched.
+
+### Honesty Status
+- Implemented locally: All pipeline transformers fitted, verified, and saved to disk using actual project data.
+
 
 
 

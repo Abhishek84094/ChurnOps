@@ -134,6 +134,24 @@ stages:
       - reports/split_distribution.png:
           cache: false
 
+  preprocess:
+    cmd: python src/data/preprocessing.py
+    deps:
+      - src/data/preprocessing.py
+      - src/features/engineering.py
+      - src/utils/config.py
+      - src/utils/logging.py
+      - data/processed/train.csv
+    params:
+      - params.yaml:
+          - paths
+          - preprocessing
+    outs:
+      - models/preprocessor.joblib
+      - reports/preprocessing_report.json:
+          cache: false
+
+
 
 
 

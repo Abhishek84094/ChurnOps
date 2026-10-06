@@ -1,0 +1,124 @@
+{
+  "timestamp": "2026-10-06T04:55:11.566340+00:00",
+  "input_features_count": 19,
+  "output_features_count": 51,
+  "engineered_features_added": [
+    "tenure_cohort",
+    "total_services",
+    "is_auto_pay",
+    "has_fiber_optic",
+    "has_security_or_techsupport",
+    "has_family",
+    "is_month_to_month"
+  ],
+  "dropped_features": [
+    "gender",
+    "PhoneService"
+  ],
+  "numeric_features_scaled": [
+    "tenure",
+    "MonthlyCharges",
+    "TotalCharges",
+    "total_services"
+  ],
+  "scaler_fitted_parameters": {
+    "tenure": {
+      "mean": 32.485,
+      "std": 24.567
+    },
+    "MonthlyCharges": {
+      "mean": 64.93,
+      "std": 30.135
+    },
+    "TotalCharges": {
+      "mean": 2299.335,
+      "std": 2279.002
+    },
+    "total_services": {
+      "mean": 3.383,
+      "std": 2.071
+    }
+  },
+  "categorical_features_encoded": [
+    "Partner",
+    "Dependents",
+    "MultipleLines",
+    "InternetService",
+    "OnlineSecurity",
+    "OnlineBackup",
+    "DeviceProtection",
+    "TechSupport",
+    "StreamingTV",
+    "StreamingMovies",
+    "Contract",
+    "PaperlessBilling",
+    "PaymentMethod",
+    "tenure_cohort"
+  ],
+  "passthrough_binary_features": [
+    "SeniorCitizen",
+    "is_auto_pay",
+    "has_fiber_optic",
+    "has_security_or_techsupport",
+    "has_family",
+    "is_month_to_month"
+  ],
+  "output_feature_names": [
+    "num__tenure",
+    "num__MonthlyCharges",
+    "num__TotalCharges",
+    "num__total_services",
+    "cat__Partner_No",
+    "cat__Partner_Yes",
+    "cat__Dependents_No",
+    "cat__Dependents_Yes",
+    "cat__MultipleLines_No",
+    "cat__MultipleLines_No phone service",
+    "cat__MultipleLines_Yes",
+    "cat__InternetService_DSL",
+    "cat__InternetService_Fiber optic",
+    "cat__InternetService_No",
+    "cat__OnlineSecurity_No",
+    "cat__OnlineSecurity_No internet service",
+    "cat__OnlineSecurity_Yes",
+    "cat__OnlineBackup_No",
+    "cat__OnlineBackup_No internet service",
+    "cat__OnlineBackup_Yes",
+    "cat__DeviceProtection_No",
+    "cat__DeviceProtection_No internet service",
+    "cat__DeviceProtection_Yes",
+    "cat__TechSupport_No",
+    "cat__TechSupport_No internet service",
+    "cat__TechSupport_Yes",
+    "cat__StreamingTV_No",
+    "cat__StreamingTV_No internet service",
+    "cat__StreamingTV_Yes",
+    "cat__StreamingMovies_No",
+    "cat__StreamingMovies_No internet service",
+    "cat__StreamingMovies_Yes",
+    "cat__Contract_Month-to-month",
+    "cat__Contract_One year",
+    "cat__Contract_Two year",
+    "cat__PaperlessBilling_No",
+    "cat__PaperlessBilling_Yes",
+    "cat__PaymentMethod_Bank transfer (automatic)",
+    "cat__PaymentMethod_Credit card (automatic)",
+    "cat__PaymentMethod_Electronic check",
+    "cat__PaymentMethod_Mailed check",
+    "cat__tenure_cohort_established",
+    "cat__tenure_cohort_growing",
+    "cat__tenure_cohort_loyal",
+    "cat__tenure_cohort_new",
+    "pass__SeniorCitizen",
+    "pass__is_auto_pay",
+    "pass__has_fiber_optic",
+    "pass__has_security_or_techsupport",
+    "pass__has_family",
+    "pass__is_month_to_month"
+  ],
+  "leakage_boundary": {
+    "fitted_on": "data/processed/train.csv (5,634 rows)",
+    "test_set_access": "ZERO (test.csv untouched, locked)",
+    "ohe_unknown_policy": "ignore (guarantees runtime inference robustness)"
+  }
+}
