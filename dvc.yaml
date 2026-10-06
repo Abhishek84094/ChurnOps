@@ -89,5 +89,29 @@ stages:
       - reports/feature_engineering_report.json:
           cache: false
 
+  select_features:
+    cmd: python src/features/selection.py
+    deps:
+      - src/features/selection.py
+      - src/utils/config.py
+      - src/utils/logging.py
+      - data/interim/telco_engineered.csv
+    params:
+      - params.yaml:
+          - paths
+          - dataset
+    outs:
+      - reports/feature_selection_report.json:
+          cache: false
+      - reports/feature_selection/01_mutual_information.png:
+          cache: false
+      - reports/feature_selection/02_vif_and_correlation.png:
+          cache: false
+      - reports/feature_selection/03_model_importances.png:
+          cache: false
+      - reports/feature_selection/04_shap_summary.png:
+          cache: false
+
+
 
 

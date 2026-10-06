@@ -56,7 +56,10 @@ desktop.ini
 # Reports (generated, keep structure but not binaries)
 reports/eda/*.png
 reports/eda/*.svg
+reports/feature_selection/*.png
+reports/feature_selection/*.svg
 reports/*.txt
+
 
 # Feast
 feature_repo/data/

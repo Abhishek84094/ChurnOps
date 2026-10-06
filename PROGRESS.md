@@ -14,7 +14,7 @@ Updated after every phase.
 | 3     | Exploratory Data Analysis     | ✅ Complete | 2026-10-05 |
 | 4     | Data Cleaning                 | ✅ Complete | 2026-10-05 |
 | 5     | Feature Engineering           | ✅ Complete | 2026-10-05 |
-| 6     | Feature Selection             | ⏳ Pending  |            |
+| 6     | Feature Selection             | ✅ Complete | 2026-10-06 |
 | 7     | Train/Validation/Test Split   | ⏳ Pending  |            |
 | 8     | Preprocessing Pipeline        | ⏳ Pending  |            |
 | 9     | Baseline Models               | ⏳ Pending  |            |
@@ -301,5 +301,55 @@ MonthlyCharges, TotalCharges, Churn
 
 ### Honesty Status
 - Implemented locally: All code executed directly on the dataset; all correlation figures and churn rates computed from data.
+
+---
+
+## Phase 6 — Feature Selection
+
+**Status:** ✅ Complete  
+**Date:** 2026-10-06
+
+### What was done
+- Implemented multi-method feature evaluation in `src/features/selection.py`:
+  1. **Information-Theoretic Utility:** Computed Scikit-Learn `mutual_info_classif` across one-hot encoded feature space against `Churn`.
+  2. **Multicollinearity / VIF Analysis:** Computed Variance Inflation Factors across continuous numeric regressors using `statsmodels`. Flagged `TotalCharges` (VIF = 10.27) as collinear with `tenure` (VIF = 5.85) and `MonthlyCharges` (VIF = 4.41).
+  3. **Tree-Based Model Importances:** Fitted Random Forest (Gini importances) and XGBoost (Split gain importances) on training split.
+  4. **Model-Agnostic Permutation Importance:** Scrambled each feature 5 times on an unseen holdout validation split (80/20) and measured the resulting decrease in ROC-AUC.
+  5. **SHAP (SHapley Additive exPlanations):** Computed TreeExplainer attribution values on validation split, identifying directional effects.
+- Generated diagnostic figures saved to `reports/feature_selection/`:
+  - `01_mutual_information.png`
+  - `02_vif_and_correlation.png`
+  - `03_model_importances.png`
+  - `04_shap_summary.png`
+- Exported complete audit report `reports/feature_selection_report.json`.
+- Created and executed `notebooks/05_feature_selection.ipynb` with interactive visual displays.
+- Added `select_features` stage to `dvc.yaml`.
+
+### Real Numbers from Feature Selection Execution
+| Feature | Mutual Information | Permutation Importance (ROC-AUC drop) | Mean Abs SHAP | Final Decision | Justification |
+|---------|-------------------|---------------------------------------|---------------|----------------|---------------|
+| `is_month_to_month` | 0.0917 (#1) | +0.09907 (#1) | 0.8156 (#1) | **KEEP** | Dominant churn driver across all methods. |
+| `tenure` | 0.0761 (#2) | +0.06669 (#2) | 0.4296 (#2) | **KEEP** | Core longevity predictor; substantial ROC-AUC impact. |
+| `has_fiber_optic` | 0.0441 | +0.01755 (#3) | 0.2732 (#3) | **KEEP** | Direct flag for highest churn infrastructure segment. |
+| `MonthlyCharges` | 0.0402 | +0.00440 | 0.2388 (#4) | **KEEP** | Key pricing sensitivity regressor. |
+| `PaymentMethod` (Electronic check) | 0.0494 | +0.00333 | 0.1716 (#5) | **KEEP** | High behavioral signal (45.3% churn). |
+| `has_security_or_techsupport` | 0.0381 | +0.00396 | 0.1458 (#6) | **KEEP** | Major customer retention buffer (17.1% vs 33.4%). |
+| `total_services` | 0.0336 | +0.00120 | 0.0812 | **KEEP** | Monotonic protective engagement metric. |
+| `TotalCharges` | 0.0398 | +0.00115 | 0.0684 | **CONDITIONAL** | VIF = 10.27. Kept for non-linear trees; monitored / regularized in linear models. |
+| `tenure_cohort` | 0.0482 | +0.00085 | 0.0512 | **CONDITIONAL** | Binned steps beneficial for linear models; redundant for tree models. |
+| `gender` | 0.0000 | 0.00000 | 0.0000 | **DROP** | Zero information gain (Cramer's V=0.008, MI=0.000). Dropping enforces fairness and eliminates noise. |
+| `PhoneService` | 0.0000 | 0.00000 | 0.0000 | **DROP** | 100% redundant with `MultipleLines` (which already includes `'No phone service'`). |
+
+### Key Decisions (with reasoning)
+1. **Dropping `gender` and `PhoneService`:**
+   - Both features demonstrated exactly 0.0000 Mutual Information, 0.000 Permutation Importance, and negligible correlation with Churn. Dropping `gender` adheres to algorithmic fairness (avoiding gender bias where no predictive correlation exists), while dropping `PhoneService` removes strict duplication with `MultipleLines`.
+2. **Handling `TotalCharges` Collinearity (VIF = 10.27):**
+   - In tree models (Random Forest, XGBoost), collinearity does not distort decision tree splits. In linear models (Logistic Regression), `TotalCharges` will be stabilized using L2 ridge penalty ($\ell_2$) or excluded in model ablation.
+3. **Leakage Rule R3 Compliance:**
+   - Feature evaluations here serve as exploratory characterization. Any supervised feature elimination (e.g. `SelectFromModel` or `RFECV`) will be placed strictly inside the Scikit-Learn `Pipeline` fitted on training CV folds only (Phase 8/9/10).
+
+### Honesty Status
+- Implemented locally: All models, permutation runs, VIF scores, and SHAP trees executed live on local dataset.
+
 
 

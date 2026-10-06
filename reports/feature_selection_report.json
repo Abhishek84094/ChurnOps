@@ -1,0 +1,211 @@
+{
+  "timestamp": "2026-10-06T04:39:34.889292+00:00",
+  "input_features_count": 26,
+  "encoded_features_count": 39,
+  "vif_analysis": [
+    {
+      "Feature": "TotalCharges",
+      "VIF": 10.27
+    },
+    {
+      "Feature": "tenure",
+      "VIF": 5.85
+    },
+    {
+      "Feature": "total_services",
+      "VIF": 4.42
+    },
+    {
+      "Feature": "MonthlyCharges",
+      "VIF": 4.41
+    }
+  ],
+  "top_mutual_information": {
+    "is_month_to_month": 0.08773,
+    "tenure": 0.07491,
+    "Contract_Two year": 0.06869,
+    "tenure_cohort_new": 0.05389,
+    "has_fiber_optic": 0.05301,
+    "MonthlyCharges": 0.05079,
+    "TotalCharges": 0.04422,
+    "StreamingMovies_No internet service": 0.04109,
+    "PaymentMethod_Electronic check": 0.03993,
+    "InternetService_Fiber optic": 0.03863
+  },
+  "top_permutation_importance": [
+    {
+      "Feature": "is_month_to_month",
+      "Permutation_Mean": 0.09907,
+      "Permutation_Std": 0.00481
+    },
+    {
+      "Feature": "tenure",
+      "Permutation_Mean": 0.06669,
+      "Permutation_Std": 0.00213
+    },
+    {
+      "Feature": "has_fiber_optic",
+      "Permutation_Mean": 0.01755,
+      "Permutation_Std": 0.00643
+    },
+    {
+      "Feature": "InternetService_No",
+      "Permutation_Mean": 0.00891,
+      "Permutation_Std": 0.0029
+    },
+    {
+      "Feature": "MonthlyCharges",
+      "Permutation_Mean": 0.0044,
+      "Permutation_Std": 0.00295
+    },
+    {
+      "Feature": "has_security_or_techsupport",
+      "Permutation_Mean": 0.0039,
+      "Permutation_Std": 0.00152
+    },
+    {
+      "Feature": "PaymentMethod_Electronic check",
+      "Permutation_Mean": 0.00322,
+      "Permutation_Std": 0.0014
+    },
+    {
+      "Feature": "Contract_One year",
+      "Permutation_Mean": 0.00313,
+      "Permutation_Std": 0.00054
+    },
+    {
+      "Feature": "StreamingMovies_Yes",
+      "Permutation_Mean": 0.00177,
+      "Permutation_Std": 0.00057
+    },
+    {
+      "Feature": "Contract_Two year",
+      "Permutation_Mean": 0.00146,
+      "Permutation_Std": 0.00125
+    }
+  ],
+  "top_shap_features": {
+    "is_month_to_month": 0.8158900141716003,
+    "tenure": 0.43369001150131226,
+    "has_fiber_optic": 0.27208998799324036,
+    "MonthlyCharges": 0.2405100017786026,
+    "PaymentMethod_Electronic check": 0.1714800000190735,
+    "has_security_or_techsupport": 0.14559000730514526,
+    "InternetService_No": 0.12764999270439148,
+    "Contract_One year": 0.11389999836683273,
+    "PaperlessBilling_Yes": 0.10905999690294266,
+    "StreamingMovies_Yes": 0.09645000100135803
+  },
+  "decision_matrix": [
+    {
+      "feature": "is_month_to_month",
+      "decision": "KEEP",
+      "reason": "Dominant churn predictor (Cramer's V=0.41, Top Permutation Imp=0.099, Top SHAP=0.816). Captures lack of contractual commitment."
+    },
+    {
+      "feature": "tenure",
+      "decision": "KEEP",
+      "reason": "Top continuous predictor across all methods (Permutation Imp=0.067, SHAP=0.430, RF Imp=0.099). Reflects customer longevity."
+    },
+    {
+      "feature": "has_fiber_optic",
+      "decision": "KEEP",
+      "reason": "Highest risk technological cohort (41.9% churn, Permutation Imp=0.018, SHAP=0.273). Directly flags infrastructure dissatisfaction."
+    },
+    {
+      "feature": "MonthlyCharges",
+      "decision": "KEEP",
+      "reason": "Primary financial driver (SHAP=0.239, RF Imp=0.109). Moderately correlated with fiber optic but carries vital pricing elasticity signal."
+    },
+    {
+      "feature": "PaymentMethod",
+      "decision": "KEEP",
+      "reason": "Strong behavioral signal: Electronic check users churn at 45.3% (SHAP=0.172). One-hot encoded in Phase 8 pipeline."
+    },
+    {
+      "feature": "has_security_or_techsupport",
+      "decision": "KEEP",
+      "reason": "Significant retention buffer (churn rate 17.1% vs 33.4%, SHAP=0.146). Captures critical support engagement."
+    },
+    {
+      "feature": "total_services",
+      "decision": "KEEP",
+      "reason": "Measures breadth of adoption and switching barriers (RF Imp=0.028). Monotonic protective relationship with churn."
+    },
+    {
+      "feature": "Contract",
+      "decision": "KEEP",
+      "reason": "Original categorical commitment feature. Included alongside is_month_to_month so models can capture 1-year and 2-year distinct retention tiers."
+    },
+    {
+      "feature": "InternetService",
+      "decision": "KEEP",
+      "reason": "Captures DSL, Fiber optic, and No internet distinct baseline churn rates (7.4% vs 19.0% vs 41.9%)."
+    },
+    {
+      "feature": "PaperlessBilling",
+      "decision": "KEEP",
+      "reason": "Consistent moderate predictor (SHAP=0.107, 33.6% churn for paperless vs 16.3% for paper)."
+    },
+    {
+      "feature": "OnlineSecurity / TechSupport / StreamingTV / StreamingMovies / OnlineBackup / DeviceProtection",
+      "decision": "KEEP",
+      "reason": "Individual services provide granular signal for tree models and personalized intervention strategies."
+    },
+    {
+      "feature": "SeniorCitizen / Partner / Dependents / has_family",
+      "decision": "KEEP",
+      "reason": "Demographic and household stickiness indicators. Family accounts churn at 14.2% vs 30.6% for solo accounts."
+    },
+    {
+      "feature": "TotalCharges",
+      "decision": "CONDITIONAL (KEEP FOR TREES, MONITOR IN LINEAR)",
+      "reason": "VIF is 10.27 (high collinearity with tenure * MonthlyCharges). Random Forest ranks it #1 in Gini splits, but linear regression requires regularization (L2) to prevent coefficient inflation."
+    },
+    {
+      "feature": "tenure_cohort",
+      "decision": "KEEP FOR LINEAR MODELS",
+      "reason": "Provides non-linear binned steps for Logistic Regression. Tree models can split on continuous tenure directly."
+    },
+    {
+      "feature": "gender",
+      "decision": "DROP (ZERO SIGNAL / FAIRNESS)",
+      "reason": "Mutual Information = 0.0000, Cramer's V = 0.0085, Permutation Importance = 0.000. Male vs Female churn difference is 0.76% (statistical noise). Dropping eliminates demographic noise and promotes algorithmic fairness."
+    },
+    {
+      "feature": "PhoneService",
+      "decision": "DROP (REDUNDANT WITH MultipleLines)",
+      "reason": "Mutual Information = 0.0000, Cramer's V = 0.0119. MultipleLines already encodes {'No phone service', 'No', 'Yes'}, rendering PhoneService 100% redundant."
+    }
+  ],
+  "recommended_drop_list": [
+    "gender",
+    "PhoneService"
+  ],
+  "recommended_retained_list": [
+    "SeniorCitizen",
+    "Partner",
+    "Dependents",
+    "tenure",
+    "MultipleLines",
+    "InternetService",
+    "OnlineSecurity",
+    "OnlineBackup",
+    "DeviceProtection",
+    "TechSupport",
+    "StreamingTV",
+    "StreamingMovies",
+    "Contract",
+    "PaperlessBilling",
+    "PaymentMethod",
+    "MonthlyCharges",
+    "TotalCharges",
+    "tenure_cohort",
+    "total_services",
+    "is_auto_pay",
+    "has_fiber_optic",
+    "has_security_or_techsupport",
+    "has_family",
+    "is_month_to_month"
+  ]
+}
