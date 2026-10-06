@@ -54,11 +54,14 @@ desktop.ini
 *.swo
 
 # Reports (generated, keep structure but not binaries)
+reports/*.png
+reports/*.svg
 reports/eda/*.png
 reports/eda/*.svg
 reports/feature_selection/*.png
 reports/feature_selection/*.svg
 reports/*.txt
+
 
 
 # Feast

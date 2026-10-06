@@ -1,0 +1,75 @@
+{
+  "timestamp": "2026-10-06T04:47:06.594248+00:00",
+  "random_state": 42,
+  "test_size": 0.2,
+  "n_cv_folds": 5,
+  "original_dataset": {
+    "total_rows": 7043,
+    "retained_0": 5174,
+    "churned_1": 1869,
+    "churn_pct": 26.54,
+    "imbalance_ratio": 2.7683
+  },
+  "train_set": {
+    "total_rows": 5634,
+    "retained_0": 4139,
+    "churned_1": 1495,
+    "churn_pct": 26.54,
+    "imbalance_ratio": 2.7686
+  },
+  "test_set": {
+    "total_rows": 1409,
+    "retained_0": 1035,
+    "churned_1": 374,
+    "churn_pct": 26.54,
+    "imbalance_ratio": 2.7674,
+    "status": "LOCKED until Phase 14"
+  },
+  "cv_folds": [
+    {
+      "fold": 1,
+      "train_size": 4507,
+      "val_size": 1127,
+      "val_churn_count": 299,
+      "val_retained_count": 828,
+      "val_churn_pct": 26.53
+    },
+    {
+      "fold": 2,
+      "train_size": 4507,
+      "val_size": 1127,
+      "val_churn_count": 299,
+      "val_retained_count": 828,
+      "val_churn_pct": 26.53
+    },
+    {
+      "fold": 3,
+      "train_size": 4507,
+      "val_size": 1127,
+      "val_churn_count": 299,
+      "val_retained_count": 828,
+      "val_churn_pct": 26.53
+    },
+    {
+      "fold": 4,
+      "train_size": 4507,
+      "val_size": 1127,
+      "val_churn_count": 299,
+      "val_retained_count": 828,
+      "val_churn_pct": 26.53
+    },
+    {
+      "fold": 5,
+      "train_size": 4508,
+      "val_size": 1126,
+      "val_churn_count": 299,
+      "val_retained_count": 827,
+      "val_churn_pct": 26.55
+    }
+  ],
+  "integrity_assertions": {
+    "stratification_preserved": true,
+    "row_sum_matches": true,
+    "column_count_matches": true
+  }
+}

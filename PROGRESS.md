@@ -15,7 +15,7 @@ Updated after every phase.
 | 4     | Data Cleaning                 | ✅ Complete | 2026-10-05 |
 | 5     | Feature Engineering           | ✅ Complete | 2026-10-05 |
 | 6     | Feature Selection             | ✅ Complete | 2026-10-06 |
-| 7     | Train/Validation/Test Split   | ⏳ Pending  |            |
+| 7     | Train/Validation/Test Split   | ✅ Complete | 2026-10-06 |
 | 8     | Preprocessing Pipeline        | ⏳ Pending  |            |
 | 9     | Baseline Models               | ⏳ Pending  |            |
 | 10    | Cross-Validation              | ⏳ Pending  |            |
@@ -350,6 +350,53 @@ MonthlyCharges, TotalCharges, Churn
 
 ### Honesty Status
 - Implemented locally: All models, permutation runs, VIF scores, and SHAP trees executed live on local dataset.
+
+---
+
+## Phase 7 — Train / Validation / Test Split
+
+**Status:** ✅ Complete  
+**Date:** 2026-10-06
+
+### What was done
+- Implemented `src/data/split.py` module executing a stratified 80/20 train/test partition using `random_state = 42`.
+- Preserved identical minority class ratios across all data partitions (Original: 26.54%, Train: 26.54%, Test: 26.54%).
+- Generated a repeatable 5-Fold `StratifiedKFold` structure on the training set, saving exact row indices to `data/processed/cv_folds.json`.
+- Exported partition datasets to `data/processed/`:
+  - `data/processed/train.csv` (5,634 rows x 20 columns)
+  - `data/processed/test.csv` (1,409 rows x 20 columns) — **LOCKED** until Phase 14
+- Formulated strict **Test Set Lock Protocol** enforcing Rule R3 (no data leakage).
+- Generated validation plot `reports/split_distribution.png` and report `reports/split_report.json`.
+- Created and executed `notebooks/06_train_test_split.ipynb`.
+- Added `split` stage to `dvc.yaml`.
+
+### Real Numbers from Split Execution
+| Partition | Total Observations | Retained (Class 0) | Churned (Class 1) | Churn Percentage (%) | Imbalance Ratio (0:1) | Status |
+|-----------|--------------------|--------------------|-------------------|----------------------|-----------------------|--------|
+| **Full Dataset** | 7,043 | 5,174 | 1,869 | 26.54% | 2.7683 : 1 | Original |
+| **Train Set (80%)** | 5,634 | 4,139 | 1,495 | 26.54% | 2.7686 : 1 | Active for Modeling |
+| **Test Set (20%)** | 1,409 | 1,035 | 374 | 26.54% | 2.7674 : 1 | **LOCKED (Phase 14)** |
+
+#### 5-Fold Stratified Cross-Validation Folds (Train Split)
+| Fold | Train Size | Val Size | Val Retained (0) | Val Churned (1) | Val Churn Rate (%) |
+|------|------------|----------|-------------------|-----------------|--------------------|
+| Fold 1 | 4,507 | 1,127 | 828 | 299 | 26.53% |
+| Fold 2 | 4,507 | 1,127 | 828 | 299 | 26.53% |
+| Fold 3 | 4,507 | 1,127 | 828 | 299 | 26.53% |
+| Fold 4 | 4,507 | 1,127 | 828 | 299 | 26.53% |
+| Fold 5 | 4,508 | 1,126 | 827 | 299 | 26.55% |
+
+### Key Decisions (with reasoning)
+1. **Stratification Enforcement:**
+   - With an imbalance ratio of 2.77:1, a random (unstratified) split risks sampling variance between training and test sets. Stratification ensures both sets faithfully represent the true population churn rate (disparity < 0.01%).
+2. **Fixed CV Folds Storage (`cv_folds.json`):**
+   - By exporting the 5-fold validation indices, all baseline models (Phase 9), hyperparameter searches (Phase 12), and diagnostic checks (Phase 11) will be evaluated on the exact same customer cohorts, eliminating fold-selection variance during model comparisons.
+3. **Locking the Test Set (Rule R3):**
+   - `data/processed/test.csv` is strictly sealed. No feature selection, imputation, encoding, or hyperparameter exploration will touch this file. It will be accessed exclusively in Phase 14 to provide an unbiased estimate of real-world generalization performance.
+
+### Honesty Status
+- Implemented locally: All partitions and CV fold assignments generated directly from `data/interim/telco_clean.csv` via deterministic local execution.
+
 
 
 

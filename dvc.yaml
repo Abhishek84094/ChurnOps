@@ -112,6 +112,29 @@ stages:
       - reports/feature_selection/04_shap_summary.png:
           cache: false
 
+  split:
+    cmd: python src/data/split.py
+    deps:
+      - src/data/split.py
+      - src/utils/config.py
+      - src/utils/logging.py
+      - data/interim/telco_clean.csv
+    params:
+      - params.yaml:
+          - paths
+          - split
+          - cv
+          - random_state
+    outs:
+      - data/processed/train.csv
+      - data/processed/test.csv
+      - data/processed/cv_folds.json
+      - reports/split_report.json:
+          cache: false
+      - reports/split_distribution.png:
+          cache: false
+
+
 
 
 
