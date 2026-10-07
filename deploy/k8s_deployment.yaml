@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: churnops-api
+    version: 1.0.0
+  name: churnops-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: churnops-api
+  template:
+    metadata:
+      labels:
+        app: churnops-api
+        version: 1.0.0
+    spec:
+      containers:
+      - image: churnops-api:1.0.0
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        name: churnops-api
+        ports:
+        - containerPort: 8000
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 256Mi

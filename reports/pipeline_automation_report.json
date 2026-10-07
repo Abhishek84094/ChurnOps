@@ -1,0 +1,655 @@
+{
+  "timestamp": "2026-10-06T17:04:05.582855+00:00",
+  "phase": 17,
+  "elapsed_seconds": 1.91,
+  "pipeline_stages": {
+    "total_stages": 14,
+    "stages": {
+      "ingest": {
+        "cmd": "python src/data/ingestion.py",
+        "deps": [
+          "src/data/ingestion.py",
+          "src/utils/config.py",
+          "src/utils/logging.py",
+          "data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv"
+        ],
+        "outs": [
+          {
+            "reports/dataset_metadata.json": {
+              "cache": false
+            }
+          }
+        ],
+        "params": [
+          {
+            "params.yaml": [
+              "paths",
+              "dataset"
+            ]
+          }
+        ]
+      },
+      "validate": {
+        "cmd": "python src/data/validation.py",
+        "deps": [
+          "src/data/validation.py",
+          "src/utils/config.py",
+          "src/utils/logging.py",
+          "data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv",
+          "reports/dataset_metadata.json"
+        ],
+        "outs": [
+          {
+            "reports/validation_report.json": {
+              "cache": false
+            }
+          }
+        ],
+        "params": [
+          {
+            "params.yaml": [
+              "paths",
+              "dataset"
+            ]
+          }
+        ]
+      },
+      "eda": {
+        "cmd": "python src/data/eda.py",
+        "deps": [
+          "src/data/eda.py",
+          "src/utils/config.py",
+          "src/utils/logging.py",
+          "data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv",
+          "reports/validation_report.json"
+        ],
+        "outs": [
+          {
+            "reports/eda/eda_summary.json": {
+              "cache": false
+            }
+          },
+          {
+            "reports/eda/01_target_distribution.png": {
+              "cache": false
+            }
+          },
+          {
+            "reports/eda/02_numeric_distributions.png": {
+              "cache": false
+            }
+          },
+          {
+            "reports/eda/03_cramers_v_ranking.png": {
+              "cache": false
+            }
+          },
+          {
+            "reports/eda/04_bivariate_key_drivers.png": {
+              "cache": false
+            }
+          },
+          {
+            "reports/eda/05_numeric_correlation_matrix.png": {
+              "cache": false
+            }
+          }
+        ],
+        "params": [
+          {
+            "params.yaml": [
+              "paths",
+              "dataset"
+            ]
+          }
+        ]
+      },
+      "clean": {
+        "cmd": "python src/data/cleaning.py",
+        "deps": [
+          "src/data/cleaning.py",
+          "src/utils/config.py",
+          "src/utils/logging.py",
+          "data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv",
+          "reports/eda/eda_summary.json"
+        ],
+        "outs": [
+          "data/interim/telco_clean.csv",
+          {
+            "reports/cleaning_log.json": {
+              "cache": false
+            }
+          }
+        ],
+        "params": [
+          {
+            "params.yaml": [
+              "paths",
+              "dataset"
+            ]
+          }
+        ]
+      },
+      "engineer_features": {
+        "cmd": "python src/features/engineering.py",
+        "deps": [
+          "src/features/engineering.py",
+          "src/utils/config.py",
+          "src/utils/logging.py",
+          "data/interim/telco_clean.csv"
+        ],
+        "outs": [
+          "data/interim/telco_engineered.csv",
+          {
+            "reports/feature_engineering_report.json": {
+              "cache": false
+            }
+          }
+        ],
+        "params": [
+          {
+            "params.yaml": [
+              "paths",
+              "features"
+            ]
+          }
+        ]
+      },
+      "select_features": {
+        "cmd": "python src/features/selection.py",
+        "deps": [
+          "src/features/selection.py",
+          "src/utils/config.py",
+          "src/utils/logging.py",
+          "data/interim/telco_engineered.csv"
+        ],
+        "outs": [
+          {
+            "reports/feature_selection_report.json": {
+              "cache": false
+            }
+          },
+          {
+            "reports/feature_selection/01_mutual_information.png": {
+              "cache": false
+            }
+          },
+          {
+            "reports/feature_selection/02_vif_and_correlation.png": {
+              "cache": false
+            }
+          },
+          {
+            "reports/feature_selection/03_model_importances.png": {
+              "cache": false
+            }
+          },
+          {
+            "reports/feature_selection/04_shap_summary.png": {
+              "cache": false
+            }
+          }
+        ],
+        "params": [
+          {
+            "params.yaml": [
+              "paths",
+              "dataset"
+            ]
+          }
+        ]
+      },
+      "split": {
+        "cmd": "python src/data/split.py",
+        "deps": [
+          "src/data/split.py",
+          "src/utils/config.py",
+          "src/utils/logging.py",
+          "data/interim/telco_clean.csv"
+        ],
+        "outs": [
+          "data/processed/train.csv",
+          "data/processed/test.csv",
+          "data/processed/cv_folds.json",
+          {
+            "reports/split_report.json": {
+              "cache": false
+            }
+          },
+          {
+            "reports/split_distribution.png": {
+              "cache": false
+            }
+          }
+        ],
+        "params": [
+          {
+            "params.yaml": [
+              "paths",
+              "split",
+              "cv",
+              "random_state"
+            ]
+          }
+        ]
+      },
+      "preprocess": {
+        "cmd": "python src/data/preprocessing.py",
+        "deps": [
+          "src/data/preprocessing.py",
+          "src/features/engineering.py",
+          "src/utils/config.py",
+          "src/utils/logging.py",
+          "data/processed/train.csv"
+        ],
+        "outs": [
+          "models/preprocessor.joblib",
+          {
+            "reports/preprocessing_report.json": {
+              "cache": false
+            }
+          }
+        ],
+        "params": [
+          {
+            "params.yaml": [
+              "paths",
+              "preprocessing"
+            ]
+          }
+        ]
+      },
+      "baseline_train": {
+        "cmd": "python src/models/train.py",
+        "deps": [
+          "src/models/train.py",
+          "src/data/preprocessing.py",
+          "src/features/engineering.py",
+          "src/utils/config.py",
+          "src/utils/logging.py",
+          "data/processed/train.csv",
+          "data/processed/cv_folds.json"
+        ],
+        "outs": [
+          {
+            "reports/baseline_cv_results.json": {
+              "cache": false
+            }
+          },
+          {
+            "reports/baseline_summary.json": {
+              "cache": false
+            }
+          }
+        ],
+        "params": [
+          {
+            "params.yaml": [
+              "random_state",
+              "dataset",
+              "registry",
+              "imbalance"
+            ]
+          }
+        ]
+      },
+      "cv_analysis": {
+        "cmd": "python src/models/cross_validate.py",
+        "deps": [
+          "src/models/cross_validate.py",
+          "src/data/preprocessing.py",
+          "src/features/engineering.py",
+          "src/utils/config.py",
+          "src/utils/logging.py",
+          "data/processed/train.csv",
+          "data/processed/cv_folds.json",
+          "reports/baseline_cv_results.json"
+        ],
+        "outs": [
+          {
+            "reports/cv_analysis_report.json": {
+              "cache": false
+            }
+          },
+          {
+            "reports/cv_learning_curves.png": {
+              "cache": false
+            }
+          },
+          {
+            "reports/cv_fold_distributions.png": {
+              "cache": false
+            }
+          },
+          {
+            "reports/cv_calibration_curves.png": {
+              "cache": false
+            }
+          },
+          {
+            "reports/cv_threshold_sensitivity.png": {
+              "cache": false
+            }
+          }
+        ],
+        "params": [
+          {
+            "params.yaml": [
+              "random_state",
+              "dataset",
+              "diagnosis"
+            ]
+          }
+        ]
+      },
+      "diagnose": {
+        "cmd": "python src/models/diagnose.py",
+        "deps": [
+          "src/models/diagnose.py",
+          "src/data/preprocessing.py",
+          "src/features/engineering.py",
+          "src/utils/config.py",
+          "src/utils/logging.py",
+          "data/processed/train.csv",
+          "data/processed/cv_folds.json",
+          "reports/cv_analysis_report.json"
+        ],
+        "outs": [
+          {
+            "reports/diagnosis_report.json": {
+              "cache": false
+            }
+          },
+          {
+            "reports/diagnosis_complexity_curves.png": {
+              "cache": false
+            }
+          },
+          {
+            "reports/diagnosis_slice_error_analysis.png": {
+              "cache": false
+            }
+          },
+          {
+            "reports/diagnosis_error_confidence.png": {
+              "cache": false
+            }
+          }
+        ],
+        "params": [
+          {
+            "params.yaml": [
+              "random_state",
+              "dataset",
+              "diagnosis"
+            ]
+          }
+        ]
+      },
+      "tune": {
+        "cmd": "python src/models/tune.py",
+        "deps": [
+          "src/models/tune.py",
+          "src/data/preprocessing.py",
+          "src/features/engineering.py",
+          "src/utils/config.py",
+          "src/utils/logging.py",
+          "data/processed/train.csv",
+          "data/processed/cv_folds.json",
+          "reports/diagnosis_report.json",
+          "reports/baseline_summary.json"
+        ],
+        "outs": [
+          {
+            "reports/tuning_report.json": {
+              "cache": false
+            }
+          },
+          {
+            "reports/tuning_comparison.png": {
+              "cache": false
+            }
+          },
+          {
+            "models/tuned_logisticregression.joblib": {
+              "cache": false
+            }
+          },
+          {
+            "models/tuned_randomforest.joblib": {
+              "cache": false
+            }
+          },
+          {
+            "models/tuned_xgboost.joblib": {
+              "cache": false
+            }
+          }
+        ],
+        "params": [
+          {
+            "params.yaml": [
+              "random_state",
+              "dataset",
+              "tuning",
+              "registry"
+            ]
+          }
+        ]
+      },
+      "improve": {
+        "cmd": "python src/models/improve.py",
+        "deps": [
+          "src/models/improve.py",
+          "src/data/preprocessing.py",
+          "src/features/engineering.py",
+          "src/utils/config.py",
+          "src/utils/logging.py",
+          "data/processed/train.csv",
+          "data/processed/cv_folds.json",
+          "reports/tuning_report.json"
+        ],
+        "outs": [
+          {
+            "reports/improvement_report.json": {
+              "cache": false
+            }
+          },
+          {
+            "reports/ensemble_comparison.png": {
+              "cache": false
+            }
+          },
+          {
+            "models/ensemble_voting.joblib": {
+              "cache": false
+            }
+          },
+          {
+            "models/ensemble_stacking.joblib": {
+              "cache": false
+            }
+          }
+        ],
+        "params": [
+          {
+            "params.yaml": [
+              "random_state",
+              "dataset",
+              "registry"
+            ]
+          }
+        ]
+      },
+      "evaluate": {
+        "cmd": "python src/models/evaluate.py",
+        "deps": [
+          "src/models/evaluate.py",
+          "src/data/preprocessing.py",
+          "src/features/engineering.py",
+          "src/utils/config.py",
+          "src/utils/logging.py",
+          "data/processed/test.csv",
+          "models/tuned_xgboost.joblib"
+        ],
+        "outs": [
+          {
+            "reports/final_model_evaluation.json": {
+              "cache": false
+            }
+          },
+          {
+            "reports/test_confusion_matrix.png": {
+              "cache": false
+            }
+          },
+          {
+            "reports/test_roc_pr_curves.png": {
+              "cache": false
+            }
+          },
+          {
+            "models/champion_model.joblib": {
+              "cache": false
+            }
+          },
+          {
+            "models/champion_metadata.json": {
+              "cache": false
+            }
+          }
+        ],
+        "params": [
+          {
+            "params.yaml": [
+              "dataset",
+              "registry"
+            ]
+          }
+        ]
+      }
+    },
+    "execution_order": [
+      "ingest",
+      "validate",
+      "eda",
+      "clean",
+      "engineer_features",
+      "select_features",
+      "split",
+      "preprocess",
+      "baseline_train",
+      "cv_analysis",
+      "diagnose",
+      "tune",
+      "improve",
+      "evaluate"
+    ]
+  },
+  "pipeline_status": {
+    "status": "error",
+    "stderr": "ERROR: unexpected error - cannot import name '_DIR_MARK' from 'pathspec.patterns.gitwildmatch' (C:\\Users\\Abhishek\\OneDrive\\Pictures\\Desktop\\ChurnOps\\.venv\\lib\\site-packages\\pathspec\\patterns\\gitwildmatch.py)\n\nHaving any troubles? Hit us up at https://dvc.org/support, we are always happy to help!\n"
+  },
+  "artifact_check": {
+    "total": 17,
+    "present": 17,
+    "missing": 0,
+    "details": [
+      {
+        "path": "reports/dataset_metadata.json",
+        "exists": true,
+        "size_kb": 2.21
+      },
+      {
+        "path": "reports/validation_report.json",
+        "exists": true,
+        "size_kb": 8.42
+      },
+      {
+        "path": "reports/cleaning_log.json",
+        "exists": true,
+        "size_kb": 2.09
+      },
+      {
+        "path": "reports/feature_engineering_report.json",
+        "exists": true,
+        "size_kb": 5.54
+      },
+      {
+        "path": "data/processed/train.csv",
+        "exists": true,
+        "size_kb": 697.14
+      },
+      {
+        "path": "data/processed/test.csv",
+        "exists": true,
+        "size_kb": 174.75
+      },
+      {
+        "path": "data/processed/cv_folds.json",
+        "exists": true,
+        "size_kb": 159.87
+      },
+      {
+        "path": "models/preprocessor.joblib",
+        "exists": true,
+        "size_kb": 9.52
+      },
+      {
+        "path": "reports/baseline_summary.json",
+        "exists": true,
+        "size_kb": 1.05
+      },
+      {
+        "path": "reports/cv_analysis_report.json",
+        "exists": true,
+        "size_kb": 2.84
+      },
+      {
+        "path": "reports/diagnosis_report.json",
+        "exists": true,
+        "size_kb": 23.37
+      },
+      {
+        "path": "reports/tuning_report.json",
+        "exists": true,
+        "size_kb": 6.34
+      },
+      {
+        "path": "reports/improvement_report.json",
+        "exists": true,
+        "size_kb": 3.91
+      },
+      {
+        "path": "reports/final_model_evaluation.json",
+        "exists": true,
+        "size_kb": 1.52
+      },
+      {
+        "path": "models/champion_model.joblib",
+        "exists": true,
+        "size_kb": 188.47
+      },
+      {
+        "path": "models/champion_metadata.json",
+        "exists": true,
+        "size_kb": 0.61
+      },
+      {
+        "path": "reports/mlflow_runs_summary.json",
+        "exists": true,
+        "size_kb": 2.11
+      }
+    ]
+  },
+  "automation_scripts": {
+    "powershell_script": "scripts/run_pipeline.ps1",
+    "bash_script": "scripts/run_pipeline.sh"
+  },
+  "summary": {
+    "total_stages": 14,
+    "pipeline_status": "error",
+    "artifacts_ready": true,
+    "scripts_generated": true
+  }
+}

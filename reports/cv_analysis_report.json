@@ -1,0 +1,159 @@
+{
+  "timestamp": "2026-10-06T06:09:02.657969+00:00",
+  "phase": 10,
+  "train_rows": 5634,
+  "n_folds": 5,
+  "gap_threshold": 0.08,
+  "bias_variance": {
+    "DummyClassifier": {
+      "mean_train_f1": 0.2544,
+      "mean_val_f1": 0.2762,
+      "gap": -0.0218,
+      "diagnosis": "underfitting"
+    },
+    "LogisticRegression": {
+      "mean_train_f1": 0.6326,
+      "mean_val_f1": 0.6258,
+      "gap": 0.0067,
+      "diagnosis": "good_fit"
+    },
+    "RandomForest": {
+      "mean_train_f1": 0.9958,
+      "mean_val_f1": 0.5465,
+      "gap": 0.4494,
+      "diagnosis": "overfitting"
+    },
+    "XGBoost": {
+      "mean_train_f1": 0.9568,
+      "mean_val_f1": 0.578,
+      "gap": 0.3788,
+      "diagnosis": "overfitting"
+    }
+  },
+  "best_thresholds": {
+    "LogisticRegression": {
+      "best_threshold": 0.6,
+      "f1_at_best": 0.6452,
+      "precision_at_best": 0.5966,
+      "recall_at_best": 0.7023
+    },
+    "RandomForest": {
+      "best_threshold": 0.35,
+      "f1_at_best": 0.6334,
+      "precision_at_best": 0.5936,
+      "recall_at_best": 0.6789
+    },
+    "XGBoost": {
+      "best_threshold": 0.35,
+      "f1_at_best": 0.6023,
+      "precision_at_best": 0.5291,
+      "recall_at_best": 0.699
+    }
+  },
+  "learning_curves": {
+    "DummyClassifier": {
+      "fracs": [
+        0.1,
+        0.25,
+        0.4,
+        0.6,
+        0.8,
+        1.0
+      ],
+      "train_f1": [
+        0.2684,
+        0.2633,
+        0.2538,
+        0.2617,
+        0.2595,
+        0.2544
+      ],
+      "val_f1": [
+        0.2734,
+        0.2719,
+        0.2708,
+        0.2735,
+        0.2766,
+        0.2762
+      ]
+    },
+    "LogisticRegression": {
+      "fracs": [
+        0.1,
+        0.25,
+        0.4,
+        0.6,
+        0.8,
+        1.0
+      ],
+      "train_f1": [
+        0.7141,
+        0.6563,
+        0.6497,
+        0.6489,
+        0.6428,
+        0.6326
+      ],
+      "val_f1": [
+        0.6075,
+        0.6276,
+        0.6251,
+        0.6218,
+        0.624,
+        0.6258
+      ]
+    },
+    "RandomForest": {
+      "fracs": [
+        0.1,
+        0.25,
+        0.4,
+        0.6,
+        0.8,
+        1.0
+      ],
+      "train_f1": [
+        1.0,
+        1.0,
+        0.9987,
+        0.9969,
+        0.9962,
+        0.9958
+      ],
+      "val_f1": [
+        0.5527,
+        0.5347,
+        0.5392,
+        0.5434,
+        0.552,
+        0.5465
+      ]
+    },
+    "XGBoost": {
+      "fracs": [
+        0.1,
+        0.25,
+        0.4,
+        0.6,
+        0.8,
+        1.0
+      ],
+      "train_f1": [
+        0.9983,
+        0.9986,
+        0.9937,
+        0.987,
+        0.9738,
+        0.9568
+      ],
+      "val_f1": [
+        0.5535,
+        0.5515,
+        0.5608,
+        0.5721,
+        0.5789,
+        0.578
+      ]
+    }
+  }
+}

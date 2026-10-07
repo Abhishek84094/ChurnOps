@@ -1,0 +1,186 @@
+{
+  "timestamp": "2026-10-06T05:59:16.610500",
+  "phase": 9,
+  "n_folds": 5,
+  "train_rows": 5634,
+  "class_balance": {
+    "positive": 1495,
+    "negative": 4139,
+    "neg_pos_ratio": 2.7686
+  },
+  "imbalance_strategy": {
+    "LR_RF": "class_weight=balanced",
+    "XGBoost": "scale_pos_weight=2.7686",
+    "Dummy": "N/A"
+  },
+  "fold_results": {
+    "DummyClassifier": [
+      {
+        "accuracy": 0.6335,
+        "precision": 0.3113,
+        "recall": 0.3144,
+        "f1": 0.3128,
+        "roc_auc": 0.5316,
+        "train_time_s": 0.05
+      },
+      {
+        "accuracy": 0.6193,
+        "precision": 0.2848,
+        "recall": 0.2876,
+        "f1": 0.2862,
+        "roc_auc": 0.5134,
+        "train_time_s": 0.07
+      },
+      {
+        "accuracy": 0.6176,
+        "precision": 0.2815,
+        "recall": 0.2843,
+        "f1": 0.2829,
+        "roc_auc": 0.5111,
+        "train_time_s": 0.08
+      },
+      {
+        "accuracy": 0.5945,
+        "precision": 0.2384,
+        "recall": 0.2408,
+        "f1": 0.2396,
+        "roc_auc": 0.4815,
+        "train_time_s": 0.09
+      },
+      {
+        "accuracy": 0.6048,
+        "precision": 0.2583,
+        "recall": 0.2609,
+        "f1": 0.2596,
+        "roc_auc": 0.495,
+        "train_time_s": 0.09
+      }
+    ],
+    "LogisticRegression": [
+      {
+        "accuracy": 0.7604,
+        "precision": 0.5315,
+        "recall": 0.8194,
+        "f1": 0.6447,
+        "roc_auc": 0.8462,
+        "train_time_s": 0.11
+      },
+      {
+        "accuracy": 0.7232,
+        "precision": 0.4856,
+        "recall": 0.7324,
+        "f1": 0.584,
+        "roc_auc": 0.8255,
+        "train_time_s": 0.09
+      },
+      {
+        "accuracy": 0.7365,
+        "precision": 0.5022,
+        "recall": 0.7726,
+        "f1": 0.6087,
+        "roc_auc": 0.8408,
+        "train_time_s": 0.08
+      },
+      {
+        "accuracy": 0.7578,
+        "precision": 0.5266,
+        "recall": 0.8595,
+        "f1": 0.6531,
+        "roc_auc": 0.8613,
+        "train_time_s": 0.08
+      },
+      {
+        "accuracy": 0.7629,
+        "precision": 0.5364,
+        "recall": 0.7893,
+        "f1": 0.6387,
+        "roc_auc": 0.8561,
+        "train_time_s": 0.11
+      }
+    ],
+    "RandomForest": [
+      {
+        "accuracy": 0.7826,
+        "precision": 0.6174,
+        "recall": 0.4749,
+        "f1": 0.5369,
+        "roc_auc": 0.818,
+        "train_time_s": 0.45
+      },
+      {
+        "accuracy": 0.7817,
+        "precision": 0.6199,
+        "recall": 0.4582,
+        "f1": 0.5269,
+        "roc_auc": 0.8067,
+        "train_time_s": 0.44
+      },
+      {
+        "accuracy": 0.7995,
+        "precision": 0.6622,
+        "recall": 0.4983,
+        "f1": 0.5687,
+        "roc_auc": 0.8282,
+        "train_time_s": 0.45
+      },
+      {
+        "accuracy": 0.7808,
+        "precision": 0.615,
+        "recall": 0.4649,
+        "f1": 0.5295,
+        "roc_auc": 0.8135,
+        "train_time_s": 0.54
+      },
+      {
+        "accuracy": 0.8046,
+        "precision": 0.6854,
+        "recall": 0.4883,
+        "f1": 0.5703,
+        "roc_auc": 0.8414,
+        "train_time_s": 0.52
+      }
+    ],
+    "XGBoost": [
+      {
+        "accuracy": 0.7675,
+        "precision": 0.5569,
+        "recall": 0.6054,
+        "f1": 0.5801,
+        "roc_auc": 0.8154,
+        "train_time_s": 0.24
+      },
+      {
+        "accuracy": 0.7516,
+        "precision": 0.5296,
+        "recall": 0.5686,
+        "f1": 0.5484,
+        "roc_auc": 0.8026,
+        "train_time_s": 0.23
+      },
+      {
+        "accuracy": 0.7791,
+        "precision": 0.5776,
+        "recall": 0.6221,
+        "f1": 0.599,
+        "roc_auc": 0.815,
+        "train_time_s": 0.22
+      },
+      {
+        "accuracy": 0.7755,
+        "precision": 0.5706,
+        "recall": 0.6221,
+        "f1": 0.5952,
+        "roc_auc": 0.825,
+        "train_time_s": 0.29
+      },
+      {
+        "accuracy": 0.7655,
+        "precision": 0.5563,
+        "recall": 0.5786,
+        "f1": 0.5672,
+        "roc_auc": 0.8172,
+        "train_time_s": 0.31
+      }
+    ]
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "timestamp": "2026-10-07T09:13:49.172168+00:00",
+  "phase": 15,
+  "experiment_name": "ChurnOps_Model_Comparison",
+  "experiment_id": "1",
+  "tracking_uri": "sqlite:///mlruns/mlflow.db",
+  "total_runs": 10,
+  "logged_runs": [
+    {
+      "run_id": "1a422f94245f48e79b511ef8155665bf",
+      "run_name": "Baseline_DummyClassifier",
+      "val_f1": 0.2762,
+      "val_roc_auc": 0.5065,
+      "gap": -0.0218
+    },
+    {
+      "run_id": "29966f935036448397276d9e72685eb3",
+      "run_name": "Baseline_LogisticRegression",
+      "val_f1": 0.6258,
+      "val_roc_auc": 0.846,
+      "gap": 0.0067
+    },
+    {
+      "run_id": "28f0747dd5484f5cbefa76d773c21739",
+      "run_name": "Baseline_RandomForest",
+      "val_f1": 0.5465,
+      "val_roc_auc": 0.8216,
+      "gap": 0.4494
+    },
+    {
+      "run_id": "48bceeb7bdba4010995b7b417969f3d4",
+      "run_name": "Baseline_XGBoost",
+      "val_f1": 0.578,
+      "val_roc_auc": 0.815,
+      "gap": 0.3788
+    },
+    {
+      "run_id": "209ef41d78a04a77b4b5f93bc366c358",
+      "run_name": "Tuned_LogisticRegression",
+      "val_f1": 0.6297,
+      "val_roc_auc": 0.8455,
+      "gap": 0.0037
+    },
+    {
+      "run_id": "771062f5ce4c4771a1ec0b65d62df11f",
+      "run_name": "Tuned_RandomForest",
+      "val_f1": 0.6324,
+      "val_roc_auc": 0.8473,
+      "gap": 0.0576
+    },
+    {
+      "run_id": "7e65c7099cd748e2897974e219e9ef21",
+      "run_name": "Tuned_XGBoost",
+      "val_f1": 0.6371,
+      "val_roc_auc": 0.8493,
+      "gap": 0.0194
+    },
+    {
+      "run_id": "ca493a37ac0e403b891ea8d84e9a76b0",
+      "run_name": "Ensemble_VotingClassifier",
+      "val_f1": 0.6357,
+      "val_roc_auc": 0.8503,
+      "gap": 0.0277
+    },
+    {
+      "run_id": "9a4c6caf3c1e4ea19ed89247682a02c3",
+      "run_name": "Ensemble_StackingClassifier",
+      "val_f1": 0.6025,
+      "val_roc_auc": 0.8503,
+      "gap": 0.029
+    },
+    {
+      "run_id": "3eccb55b855d4d6f8798617de83ab2aa",
+      "run_name": "Champion_Tuned_XGBoost",
+      "test_f1": 0.6289,
+      "test_roc_auc": 0.8491,
+      "test_recall": 0.7861,
+      "is_champion": true
+    }
+  ]
+}

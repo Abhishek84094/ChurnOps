@@ -151,6 +151,169 @@ stages:
       - reports/preprocessing_report.json:
           cache: false
 
+  baseline_train:
+    cmd: python src/models/train.py
+    deps:
+      - src/models/train.py
+      - src/data/preprocessing.py
+      - src/features/engineering.py
+      - src/utils/config.py
+      - src/utils/logging.py
+      - data/processed/train.csv
+      - data/processed/cv_folds.json
+    params:
+      - params.yaml:
+          - random_state
+          - dataset
+          - registry
+          - imbalance
+    outs:
+      - reports/baseline_cv_results.json:
+          cache: false
+      - reports/baseline_summary.json:
+          cache: false
+
+  cv_analysis:
+    cmd: python src/models/cross_validate.py
+    deps:
+      - src/models/cross_validate.py
+      - src/data/preprocessing.py
+      - src/features/engineering.py
+      - src/utils/config.py
+      - src/utils/logging.py
+      - data/processed/train.csv
+      - data/processed/cv_folds.json
+      - reports/baseline_cv_results.json
+    params:
+      - params.yaml:
+          - random_state
+          - dataset
+          - diagnosis
+    outs:
+      - reports/cv_analysis_report.json:
+          cache: false
+      - reports/cv_learning_curves.png:
+          cache: false
+      - reports/cv_fold_distributions.png:
+          cache: false
+      - reports/cv_calibration_curves.png:
+          cache: false
+      - reports/cv_threshold_sensitivity.png:
+          cache: false
+
+  diagnose:
+    cmd: python src/models/diagnose.py
+    deps:
+      - src/models/diagnose.py
+      - src/data/preprocessing.py
+      - src/features/engineering.py
+      - src/utils/config.py
+      - src/utils/logging.py
+      - data/processed/train.csv
+      - data/processed/cv_folds.json
+      - reports/cv_analysis_report.json
+    params:
+      - params.yaml:
+          - random_state
+          - dataset
+          - diagnosis
+    outs:
+      - reports/diagnosis_report.json:
+          cache: false
+      - reports/diagnosis_complexity_curves.png:
+          cache: false
+      - reports/diagnosis_slice_error_analysis.png:
+          cache: false
+      - reports/diagnosis_error_confidence.png:
+          cache: false
+
+  tune:
+    cmd: python src/models/tune.py
+    deps:
+      - src/models/tune.py
+      - src/data/preprocessing.py
+      - src/features/engineering.py
+      - src/utils/config.py
+      - src/utils/logging.py
+      - data/processed/train.csv
+      - data/processed/cv_folds.json
+      - reports/diagnosis_report.json
+      - reports/baseline_summary.json
+    params:
+      - params.yaml:
+          - random_state
+          - dataset
+          - tuning
+          - registry
+    outs:
+      - reports/tuning_report.json:
+          cache: false
+      - reports/tuning_comparison.png:
+          cache: false
+      - models/tuned_logisticregression.joblib:
+          cache: false
+      - models/tuned_randomforest.joblib:
+          cache: false
+      - models/tuned_xgboost.joblib:
+          cache: false
+
+  improve:
+    cmd: python src/models/improve.py
+    deps:
+      - src/models/improve.py
+      - src/data/preprocessing.py
+      - src/features/engineering.py
+      - src/utils/config.py
+      - src/utils/logging.py
+      - data/processed/train.csv
+      - data/processed/cv_folds.json
+      - reports/tuning_report.json
+    params:
+      - params.yaml:
+          - random_state
+          - dataset
+          - registry
+    outs:
+      - reports/improvement_report.json:
+          cache: false
+      - reports/ensemble_comparison.png:
+          cache: false
+      - models/ensemble_voting.joblib:
+          cache: false
+      - models/ensemble_stacking.joblib:
+          cache: false
+
+  evaluate:
+    cmd: python src/models/evaluate.py
+    deps:
+      - src/models/evaluate.py
+      - src/data/preprocessing.py
+      - src/features/engineering.py
+      - src/utils/config.py
+      - src/utils/logging.py
+      - data/processed/test.csv
+      - models/tuned_xgboost.joblib
+    params:
+      - params.yaml:
+          - dataset
+          - registry
+    outs:
+      - reports/final_model_evaluation.json:
+          cache: false
+      - reports/test_confusion_matrix.png:
+          cache: false
+      - reports/test_roc_pr_curves.png:
+          cache: false
+      - models/champion_model.joblib:
+          cache: false
+      - models/champion_metadata.json:
+          cache: false
+
+
+
+
+
+
 
 
 

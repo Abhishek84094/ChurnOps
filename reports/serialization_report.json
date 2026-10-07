@@ -1,0 +1,72 @@
+{
+  "timestamp": "2026-10-06T17:10:33.208835+00:00",
+  "phase": 21,
+  "elapsed_seconds": 1.73,
+  "serialization_formats": [
+    {
+      "format": "joblib",
+      "path": "models/champion_model.joblib",
+      "size_kb": 24.71,
+      "sha256_prefix": "85d47371f6ceb79e",
+      "compress_level": 3,
+      "status": "success"
+    },
+    {
+      "format": "pickle",
+      "path": "models/champion_model.pkl",
+      "size_kb": 184.13,
+      "sha256_prefix": "7e78f0006455b82a",
+      "protocol": 4,
+      "status": "success"
+    },
+    {
+      "format": "onnx",
+      "status": "skipped",
+      "reason": "skl2onnx not installed"
+    }
+  ],
+  "feature_schema": {
+    "path": "models/feature_schema.json",
+    "input_features": [
+      "SeniorCitizen",
+      "Partner",
+      "Dependents",
+      "tenure",
+      "MultipleLines",
+      "InternetService",
+      "OnlineSecurity",
+      "OnlineBackup",
+      "DeviceProtection",
+      "TechSupport",
+      "StreamingTV",
+      "StreamingMovies",
+      "Contract",
+      "PaperlessBilling",
+      "PaymentMethod",
+      "MonthlyCharges",
+      "TotalCharges"
+    ],
+    "total_features": 17
+  },
+  "validation": {
+    "reference": {
+      "probability": 0.831213,
+      "prediction": 1
+    },
+    "joblib": {
+      "probability": 0.831213,
+      "match": true
+    },
+    "pickle": {
+      "probability": 0.831213,
+      "match": true
+    }
+  },
+  "summary": {
+    "total_formats": 2,
+    "joblib_status": "success",
+    "pickle_status": "success",
+    "onnx_status": "skipped",
+    "predictions_consistent": true
+  }
+}

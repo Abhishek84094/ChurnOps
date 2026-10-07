@@ -1,0 +1,149 @@
+{
+  "timestamp": "2026-10-07T09:27:21.753454+00:00",
+  "phase": 24,
+  "reference_rows": 5634,
+  "current_rows": 1409,
+  "numeric_drift": {
+    "tenure": {
+      "psi": 0.006653,
+      "drift_level": "STABLE",
+      "ks_statistic": 0.021176,
+      "ks_pvalue": 0.6835,
+      "ks_drift_detected": false,
+      "reference_mean": 32.4851,
+      "reference_std": 24.5666,
+      "current_mean": 31.9155,
+      "current_std": 24.5171
+    },
+    "MonthlyCharges": {
+      "psi": 0.012422,
+      "drift_level": "STABLE",
+      "ks_statistic": 0.032085,
+      "ks_pvalue": 0.191154,
+      "ks_drift_detected": false,
+      "reference_mean": 64.93,
+      "reference_std": 30.1354,
+      "current_mean": 64.0889,
+      "current_std": 29.8877
+    },
+    "TotalCharges": {
+      "psi": 0.007587,
+      "drift_level": "STABLE",
+      "ks_statistic": 0.029577,
+      "ks_pvalue": 0.270953,
+      "ks_drift_detected": false,
+      "reference_mean": 2299.3347,
+      "reference_std": 2279.002,
+      "current_mean": 2201.3606,
+      "current_std": 2214.7548
+    }
+  },
+  "categorical_drift": {
+    "Contract": {
+      "psi": 0.000144,
+      "drift_level": "STABLE",
+      "chi2_statistic": 0.1632,
+      "chi2_pvalue": 0.921646,
+      "chi2_drift_detected": false,
+      "reference_distribution": {
+        "Month-to-month": 3102,
+        "Two year": 1359,
+        "One year": 1173
+      },
+      "current_distribution": {
+        "Month-to-month": 773,
+        "Two year": 336,
+        "One year": 300
+      }
+    },
+    "PaymentMethod": {
+      "psi": 0.000404,
+      "drift_level": "STABLE",
+      "chi2_statistic": 0.453,
+      "chi2_pvalue": 0.929085,
+      "chi2_drift_detected": false,
+      "reference_distribution": {
+        "Electronic check": 1891,
+        "Mailed check": 1286,
+        "Bank transfer (automatic)": 1244,
+        "Credit card (automatic)": 1213
+      },
+      "current_distribution": {
+        "Electronic check": 474,
+        "Mailed check": 326,
+        "Credit card (automatic)": 309,
+        "Bank transfer (automatic)": 300
+      }
+    },
+    "InternetService": {
+      "psi": 0.000236,
+      "drift_level": "STABLE",
+      "chi2_statistic": 0.2669,
+      "chi2_pvalue": 0.875076,
+      "chi2_drift_detected": false,
+      "reference_distribution": {
+        "Fiber optic": 2483,
+        "DSL": 1937,
+        "No": 1214
+      },
+      "current_distribution": {
+        "Fiber optic": 613,
+        "DSL": 484,
+        "No": 312
+      }
+    },
+    "Partner": {
+      "psi": 0.000182,
+      "drift_level": "STABLE",
+      "chi2_statistic": 0.1788,
+      "chi2_pvalue": 0.672439,
+      "chi2_drift_detected": false,
+      "reference_distribution": {
+        "No": 2905,
+        "Yes": 2729
+      },
+      "current_distribution": {
+        "No": 736,
+        "Yes": 673
+      }
+    },
+    "Dependents": {
+      "psi": 0.000295,
+      "drift_level": "STABLE",
+      "chi2_statistic": 0.2969,
+      "chi2_pvalue": 0.585812,
+      "chi2_drift_detected": false,
+      "reference_distribution": {
+        "No": 3955,
+        "Yes": 1679
+      },
+      "current_distribution": {
+        "No": 978,
+        "Yes": 431
+      }
+    },
+    "SeniorCitizen": {
+      "psi": 0.000244,
+      "drift_level": "STABLE",
+      "chi2_statistic": 0.2324,
+      "chi2_pvalue": 0.629782,
+      "chi2_drift_detected": false,
+      "reference_distribution": {
+        "0": 4714,
+        "1": 920
+      },
+      "current_distribution": {
+        "0": 1187,
+        "1": 222
+      }
+    }
+  },
+  "summary": {
+    "overall_status": "STABLE \u2014 NO ACTION REQUIRED",
+    "action": "Model is operating within expected distribution bounds.",
+    "stable_features": 9,
+    "moderate_features": 0,
+    "severe_features": 0,
+    "total_features_monitored": 9
+  }
+}

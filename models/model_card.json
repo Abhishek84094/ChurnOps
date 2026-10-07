@@ -1,0 +1,264 @@
+{
+  "model_name": "ChurnOps Champion \u2014 Tuned XGBoost",
+  "version": "20261007_092146",
+  "created_at": "2026-10-07T09:21:55.542307+00:00",
+  "phase": 21,
+  "description": "Binary classification model predicting telecommunications customer churn. Trained on IBM Telco Customer Churn dataset (5,634 train samples). Uses end-to-end Scikit-Learn pipeline with domain feature engineering, column transformers, and XGBoost classifier.",
+  "algorithm": "XGBClassifier (XGBoost 2.x)",
+  "training_data": {
+    "source": "IBM Telco Customer Churn Dataset",
+    "url": "https://www.kaggle.com/datasets/blastchar/telco-customer-churn",
+    "rows": 5634,
+    "features": 19,
+    "target": "Churn (binary: 0=No, 1=Yes)",
+    "class_imbalance_ratio": "73.5% No vs 26.5% Yes"
+  },
+  "pipeline_steps": [
+    "DomainFeatureEngineer (7 domain features)",
+    "ColumnTransformer (numeric scaling + one-hot encoding)",
+    "XGBClassifier (max_depth=2, lr=0.08, reg_alpha=1.0, reg_lambda=20.0)"
+  ],
+  "key_hyperparameters": {
+    "n_estimators": 200,
+    "max_depth": 2,
+    "learning_rate": 0.08,
+    "scale_pos_weight": 2.5,
+    "subsample": 0.7,
+    "colsample_bytree": 1.0,
+    "reg_alpha": 1.0,
+    "reg_lambda": 20.0
+  },
+  "performance": {
+    "holdout_test_set": {
+      "roc_auc": 0.8491,
+      "f1_score": 0.6289,
+      "recall": 0.7861,
+      "precision": 0.5241,
+      "accuracy": 0.7537,
+      "threshold": 0.5
+    },
+    "cv_validation": {
+      "mean_f1": 0.6371,
+      "mean_roc_auc": 0.8493,
+      "mean_recall": 0.7866,
+      "generalization_gap": 0.0194
+    }
+  },
+  "registry_gates": {
+    "min_f1": 0.6,
+    "min_roc_auc": 0.75,
+    "min_recall": 0.6,
+    "max_gap": 0.08,
+    "all_passed": true
+  },
+  "input_schema": [
+    {
+      "name": "gender",
+      "type": "str",
+      "example": "Male",
+      "note": "Will be dropped internally"
+    },
+    {
+      "name": "SeniorCitizen",
+      "type": "int",
+      "example": 0,
+      "values": [
+        0,
+        1
+      ]
+    },
+    {
+      "name": "Partner",
+      "type": "str",
+      "example": "Yes",
+      "values": [
+        "Yes",
+        "No"
+      ]
+    },
+    {
+      "name": "Dependents",
+      "type": "str",
+      "example": "No",
+      "values": [
+        "Yes",
+        "No"
+      ]
+    },
+    {
+      "name": "tenure",
+      "type": "int",
+      "example": 12,
+      "range": [
+        0,
+        72
+      ]
+    },
+    {
+      "name": "MultipleLines",
+      "type": "str",
+      "example": "No",
+      "values": [
+        "Yes",
+        "No",
+        "No phone service"
+      ]
+    },
+    {
+      "name": "InternetService",
+      "type": "str",
+      "example": "Fiber optic",
+      "values": [
+        "DSL",
+        "Fiber optic",
+        "No"
+      ]
+    },
+    {
+      "name": "OnlineSecurity",
+      "type": "str",
+      "example": "No",
+      "values": [
+        "Yes",
+        "No",
+        "No internet service"
+      ]
+    },
+    {
+      "name": "OnlineBackup",
+      "type": "str",
+      "example": "No",
+      "values": [
+        "Yes",
+        "No",
+        "No internet service"
+      ]
+    },
+    {
+      "name": "DeviceProtection",
+      "type": "str",
+      "example": "No",
+      "values": [
+        "Yes",
+        "No",
+        "No internet service"
+      ]
+    },
+    {
+      "name": "TechSupport",
+      "type": "str",
+      "example": "No",
+      "values": [
+        "Yes",
+        "No",
+        "No internet service"
+      ]
+    },
+    {
+      "name": "StreamingTV",
+      "type": "str",
+      "example": "No",
+      "values": [
+        "Yes",
+        "No",
+        "No internet service"
+      ]
+    },
+    {
+      "name": "StreamingMovies",
+      "type": "str",
+      "example": "No",
+      "values": [
+        "Yes",
+        "No",
+        "No internet service"
+      ]
+    },
+    {
+      "name": "Contract",
+      "type": "str",
+      "example": "Month-to-month",
+      "values": [
+        "Month-to-month",
+        "One year",
+        "Two year"
+      ]
+    },
+    {
+      "name": "PaperlessBilling",
+      "type": "str",
+      "example": "Yes",
+      "values": [
+        "Yes",
+        "No"
+      ]
+    },
+    {
+      "name": "PaymentMethod",
+      "type": "str",
+      "example": "Electronic check",
+      "values": [
+        "Electronic check",
+        "Mailed check",
+        "Bank transfer (automatic)",
+        "Credit card (automatic)"
+      ]
+    },
+    {
+      "name": "MonthlyCharges",
+      "type": "float",
+      "example": 79.85,
+      "range": [
+        18.25,
+        118.75
+      ]
+    },
+    {
+      "name": "TotalCharges",
+      "type": "float",
+      "example": 3320.75,
+      "range": [
+        0.0,
+        8684.8
+      ]
+    },
+    {
+      "name": "PhoneService",
+      "type": "str",
+      "example": "Yes",
+      "note": "Will be dropped internally"
+    }
+  ],
+  "output_schema": {
+    "churn_probability": {
+      "type": "float",
+      "range": [
+        0.0,
+        1.0
+      ]
+    },
+    "churn_prediction": {
+      "type": "int",
+      "values": [
+        0,
+        1
+      ]
+    },
+    "risk_label": {
+      "type": "str",
+      "values": [
+        "Low Risk",
+        "High Risk"
+      ]
+    }
+  },
+  "artifacts": {
+    "champion_joblib": "C:\\Users\\Abhishek\\OneDrive\\Pictures\\Desktop\\ChurnOps\\models\\champion_model.joblib",
+    "versioned_joblib": "C:\\Users\\Abhishek\\OneDrive\\Pictures\\Desktop\\ChurnOps\\models\\versions\\champion_xgboost_v20261007_092146.joblib",
+    "onnx": null
+  },
+  "ethical_considerations": "Gender feature is dropped prior to modeling to prevent gender-based discrimination. Model has been audited for subgroup performance across contract types and tenure cohorts.",
+  "limitations": "Trained on US telecom data (2017); performance may degrade on non-US markets or post-2020 data. Requires periodic retraining as customer behavior evolves.",
+  "intended_use": "Proactive churn intervention \u2014 identifies high-risk customers for retention campaigns.",
+  "deployment_notes": "Serve via FastAPI (api/app.py). Docker image in Dockerfile. Optimal threshold = 0.48."
+}

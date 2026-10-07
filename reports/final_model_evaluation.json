@@ -1,0 +1,64 @@
+{
+  "timestamp": "2026-10-06T16:44:09.562136+00:00",
+  "phase": 14,
+  "champion_model": "Tuned_XGBoost",
+  "optimal_threshold": 0.48,
+  "selection_rationale": {
+    "selected_model": "Tuned_XGBoost",
+    "optimal_threshold": 0.48,
+    "selection_criteria": {
+      "cv_val_f1_default": 0.6371,
+      "cv_val_f1_optimal": 0.6376,
+      "cv_roc_auc": 0.8493,
+      "generalization_gap": 0.0194,
+      "inference_speed": "High (~1ms)",
+      "explainability": "High (Tree SHAP native)"
+    },
+    "comparison_summary": "Tuned XGBoost delivers the optimal synthesis of F1 score, ROC-AUC, low generalization gap, and production latency."
+  },
+  "holdout_test_results": {
+    "test_samples": 1409,
+    "test_churn_rate": 0.2654,
+    "roc_auc": 0.8491,
+    "default_threshold_metrics": {
+      "threshold": 0.5,
+      "f1": 0.6289,
+      "recall": 0.7861,
+      "precision": 0.5241,
+      "accuracy": 0.7537,
+      "confusion_matrix": [
+        [
+          768,
+          267
+        ],
+        [
+          80,
+          294
+        ]
+      ]
+    },
+    "optimal_threshold_metrics": {
+      "threshold": 0.48,
+      "f1": 0.6267,
+      "recall": 0.7968,
+      "precision": 0.5165,
+      "accuracy": 0.748,
+      "confusion_matrix": [
+        [
+          756,
+          279
+        ],
+        [
+          76,
+          298
+        ]
+      ]
+    },
+    "gates_verification": {
+      "f1_gate_pass": true,
+      "auc_gate_pass": true,
+      "recall_gate_pass": true,
+      "all_gates_pass": true
+    }
+  }
+}

@@ -1,0 +1,903 @@
+{
+  "timestamp": "2026-10-06T06:25:22.024968+00:00",
+  "phase": 11,
+  "sample_count": 5634,
+  "gap_threshold": 0.08,
+  "low_f1_threshold": 0.5,
+  "summary_diagnosis": {
+    "DummyClassifier": {
+      "status": "UNDERFITTING",
+      "gap": -0.0218,
+      "action": "Benchmark only"
+    },
+    "LogisticRegression": {
+      "status": "GOOD_FIT",
+      "gap": 0.0067,
+      "action": "Optimize C and threshold"
+    },
+    "RandomForest": {
+      "status": "SEVERE_OVERFITTING",
+      "gap": 0.4494,
+      "action": "Prune max_depth to 6-8, increase min_samples_leaf"
+    },
+    "XGBoost": {
+      "status": "SEVERE_OVERFITTING",
+      "gap": 0.3788,
+      "action": "Prune max_depth to 2-3, add subsampling & L1/L2"
+    }
+  },
+  "error_confidence": {
+    "LogisticRegression": {
+      "brier_score": 0.1644,
+      "log_loss": 0.489,
+      "mean_proba_tp": 0.7765,
+      "mean_proba_tn": 0.1785,
+      "mean_proba_fp": 0.688,
+      "mean_proba_fn": 0.3183,
+      "severe_fp_count": 353,
+      "severe_fn_count": 92,
+      "severe_fp_rate": 0.0627,
+      "severe_fn_rate": 0.0163
+    },
+    "RandomForest": {
+      "brier_score": 0.1465,
+      "log_loss": 0.5145,
+      "mean_proba_tp": 0.735,
+      "mean_proba_tn": 0.1289,
+      "mean_proba_fp": 0.6828,
+      "mean_proba_fn": 0.2706,
+      "severe_fp_count": 118,
+      "severe_fn_count": 354,
+      "severe_fp_rate": 0.0209,
+      "severe_fn_rate": 0.0628
+    },
+    "XGBoost": {
+      "brier_score": 0.1648,
+      "log_loss": 0.5311,
+      "mean_proba_tp": 0.8211,
+      "mean_proba_tn": 0.088,
+      "mean_proba_fp": 0.7549,
+      "mean_proba_fn": 0.2053,
+      "severe_fp_count": 386,
+      "severe_fn_count": 342,
+      "severe_fp_rate": 0.0685,
+      "severe_fn_rate": 0.0607
+    }
+  },
+  "slice_diagnostics": {
+    "Contract": {
+      "Month-to-month": {
+        "sample_count": 3102,
+        "churn_rate": 0.4275,
+        "actual_churners": 1326,
+        "actual_non_churners": 1776,
+        "models": {
+          "LogisticRegression": {
+            "accuracy": 0.6119,
+            "f1": 0.6595,
+            "recall": 0.8793,
+            "precision": 0.5276,
+            "tp": 1166,
+            "fp": 1044,
+            "fn": 160,
+            "tn": 732,
+            "fpr": 0.5878,
+            "fnr": 0.1207
+          },
+          "RandomForest": {
+            "accuracy": 0.6738,
+            "f1": 0.5822,
+            "recall": 0.5317,
+            "precision": 0.6432,
+            "tp": 705,
+            "fp": 391,
+            "fn": 621,
+            "tn": 1385,
+            "fpr": 0.2202,
+            "fnr": 0.4683
+          },
+          "XGBoost": {
+            "accuracy": 0.6557,
+            "f1": 0.632,
+            "recall": 0.6916,
+            "precision": 0.5819,
+            "tp": 917,
+            "fp": 659,
+            "fn": 409,
+            "tn": 1117,
+            "fpr": 0.3711,
+            "fnr": 0.3084
+          }
+        }
+      },
+      "One year": {
+        "sample_count": 1173,
+        "churn_rate": 0.1108,
+        "actual_churners": 130,
+        "actual_non_churners": 1043,
+        "models": {
+          "LogisticRegression": {
+            "accuracy": 0.85,
+            "f1": 0.2,
+            "recall": 0.1692,
+            "precision": 0.2444,
+            "tp": 22,
+            "fp": 68,
+            "fn": 108,
+            "tn": 975,
+            "fpr": 0.0652,
+            "fnr": 0.8308
+          },
+          "RandomForest": {
+            "accuracy": 0.8858,
+            "f1": 0.0563,
+            "recall": 0.0308,
+            "precision": 0.3333,
+            "tp": 4,
+            "fp": 8,
+            "fn": 126,
+            "tn": 1035,
+            "fpr": 0.0077,
+            "fnr": 0.9692
+          },
+          "XGBoost": {
+            "accuracy": 0.8534,
+            "f1": 0.1224,
+            "recall": 0.0923,
+            "precision": 0.1818,
+            "tp": 12,
+            "fp": 54,
+            "fn": 118,
+            "tn": 989,
+            "fpr": 0.0518,
+            "fnr": 0.9077
+          }
+        }
+      },
+      "Two year": {
+        "sample_count": 1359,
+        "churn_rate": 0.0287,
+        "actual_churners": 39,
+        "actual_non_churners": 1320,
+        "models": {
+          "LogisticRegression": {
+            "accuracy": 0.9713,
+            "f1": 0.0,
+            "recall": 0.0,
+            "precision": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 39,
+            "tn": 1320,
+            "fpr": 0.0,
+            "fnr": 1.0
+          },
+          "RandomForest": {
+            "accuracy": 0.9698,
+            "f1": 0.0,
+            "recall": 0.0,
+            "precision": 0.0,
+            "tp": 0,
+            "fp": 2,
+            "fn": 39,
+            "tn": 1318,
+            "fpr": 0.0015,
+            "fnr": 1.0
+          },
+          "XGBoost": {
+            "accuracy": 0.9647,
+            "f1": 0.04,
+            "recall": 0.0256,
+            "precision": 0.0909,
+            "tp": 1,
+            "fp": 10,
+            "fn": 38,
+            "tn": 1310,
+            "fpr": 0.0076,
+            "fnr": 0.9744
+          }
+        }
+      }
+    },
+    "InternetService": {
+      "DSL": {
+        "sample_count": 1937,
+        "churn_rate": 0.1869,
+        "actual_churners": 362,
+        "actual_non_churners": 1575,
+        "models": {
+          "LogisticRegression": {
+            "accuracy": 0.7599,
+            "f1": 0.5211,
+            "recall": 0.6989,
+            "precision": 0.4154,
+            "tp": 253,
+            "fp": 356,
+            "fn": 109,
+            "tn": 1219,
+            "fpr": 0.226,
+            "fnr": 0.3011
+          },
+          "RandomForest": {
+            "accuracy": 0.8188,
+            "f1": 0.3365,
+            "recall": 0.2459,
+            "precision": 0.5329,
+            "tp": 89,
+            "fp": 78,
+            "fn": 273,
+            "tn": 1497,
+            "fpr": 0.0495,
+            "fnr": 0.7541
+          },
+          "XGBoost": {
+            "accuracy": 0.7919,
+            "f1": 0.4426,
+            "recall": 0.442,
+            "precision": 0.4432,
+            "tp": 160,
+            "fp": 201,
+            "fn": 202,
+            "tn": 1374,
+            "fpr": 0.1276,
+            "fnr": 0.558
+          }
+        }
+      },
+      "Fiber optic": {
+        "sample_count": 2483,
+        "churn_rate": 0.4209,
+        "actual_churners": 1045,
+        "actual_non_churners": 1438,
+        "models": {
+          "LogisticRegression": {
+            "accuracy": 0.6549,
+            "f1": 0.6843,
+            "recall": 0.889,
+            "precision": 0.5563,
+            "tp": 929,
+            "fp": 741,
+            "fn": 116,
+            "tn": 697,
+            "fpr": 0.5153,
+            "fnr": 0.111
+          },
+          "RandomForest": {
+            "accuracy": 0.7032,
+            "f1": 0.6195,
+            "recall": 0.5742,
+            "precision": 0.6726,
+            "tp": 600,
+            "fp": 292,
+            "fn": 445,
+            "tn": 1146,
+            "fpr": 0.2031,
+            "fnr": 0.4258
+          },
+          "XGBoost": {
+            "accuracy": 0.6887,
+            "f1": 0.6575,
+            "recall": 0.71,
+            "precision": 0.6122,
+            "tp": 742,
+            "fp": 470,
+            "fn": 303,
+            "tn": 968,
+            "fpr": 0.3268,
+            "fnr": 0.29
+          }
+        }
+      },
+      "No": {
+        "sample_count": 1214,
+        "churn_rate": 0.0725,
+        "actual_churners": 88,
+        "actual_non_churners": 1126,
+        "models": {
+          "LogisticRegression": {
+            "accuracy": 0.9201,
+            "f1": 0.1101,
+            "recall": 0.0682,
+            "precision": 0.2857,
+            "tp": 6,
+            "fp": 15,
+            "fn": 82,
+            "tn": 1111,
+            "fpr": 0.0133,
+            "fnr": 0.9318
+          },
+          "RandomForest": {
+            "accuracy": 0.9185,
+            "f1": 0.2878,
+            "recall": 0.2273,
+            "precision": 0.3922,
+            "tp": 20,
+            "fp": 31,
+            "fn": 68,
+            "tn": 1095,
+            "fpr": 0.0275,
+            "fnr": 0.7727
+          },
+          "XGBoost": {
+            "accuracy": 0.9077,
+            "f1": 0.3333,
+            "recall": 0.3182,
+            "precision": 0.35,
+            "tp": 28,
+            "fp": 52,
+            "fn": 60,
+            "tn": 1074,
+            "fpr": 0.0462,
+            "fnr": 0.6818
+          }
+        }
+      }
+    },
+    "tenure_group": {
+      "0-12 months": {
+        "sample_count": 1737,
+        "churn_rate": 0.4732,
+        "actual_churners": 822,
+        "actual_non_churners": 915,
+        "models": {
+          "LogisticRegression": {
+            "accuracy": 0.6557,
+            "f1": 0.7131,
+            "recall": 0.9039,
+            "precision": 0.5887,
+            "tp": 743,
+            "fp": 519,
+            "fn": 79,
+            "tn": 396,
+            "fpr": 0.5672,
+            "fnr": 0.0961
+          },
+          "RandomForest": {
+            "accuracy": 0.6955,
+            "f1": 0.6688,
+            "recall": 0.6496,
+            "precision": 0.689,
+            "tp": 534,
+            "fp": 241,
+            "fn": 288,
+            "tn": 674,
+            "fpr": 0.2634,
+            "fnr": 0.3504
+          },
+          "XGBoost": {
+            "accuracy": 0.6776,
+            "f1": 0.698,
+            "recall": 0.7871,
+            "precision": 0.6269,
+            "tp": 647,
+            "fp": 385,
+            "fn": 175,
+            "tn": 530,
+            "fpr": 0.4208,
+            "fnr": 0.2129
+          }
+        }
+      },
+      "13-24 months": {
+        "sample_count": 818,
+        "churn_rate": 0.2861,
+        "actual_churners": 234,
+        "actual_non_churners": 584,
+        "models": {
+          "LogisticRegression": {
+            "accuracy": 0.709,
+            "f1": 0.6174,
+            "recall": 0.8205,
+            "precision": 0.4948,
+            "tp": 192,
+            "fp": 196,
+            "fn": 42,
+            "tn": 388,
+            "fpr": 0.3356,
+            "fnr": 0.1795
+          },
+          "RandomForest": {
+            "accuracy": 0.7506,
+            "f1": 0.49,
+            "recall": 0.4188,
+            "precision": 0.5904,
+            "tp": 98,
+            "fp": 68,
+            "fn": 136,
+            "tn": 516,
+            "fpr": 0.1164,
+            "fnr": 0.5812
+          },
+          "XGBoost": {
+            "accuracy": 0.7213,
+            "f1": 0.521,
+            "recall": 0.5299,
+            "precision": 0.5124,
+            "tp": 124,
+            "fp": 118,
+            "fn": 110,
+            "tn": 466,
+            "fpr": 0.2021,
+            "fnr": 0.4701
+          }
+        }
+      },
+      "25-48 months": {
+        "sample_count": 1290,
+        "churn_rate": 0.2023,
+        "actual_churners": 261,
+        "actual_non_churners": 1029,
+        "models": {
+          "LogisticRegression": {
+            "accuracy": 0.7465,
+            "f1": 0.5254,
+            "recall": 0.6935,
+            "precision": 0.4229,
+            "tp": 181,
+            "fp": 247,
+            "fn": 80,
+            "tn": 782,
+            "fpr": 0.24,
+            "fnr": 0.3065
+          },
+          "RandomForest": {
+            "accuracy": 0.7876,
+            "f1": 0.2865,
+            "recall": 0.2107,
+            "precision": 0.4472,
+            "tp": 55,
+            "fp": 68,
+            "fn": 206,
+            "tn": 961,
+            "fpr": 0.0661,
+            "fnr": 0.7893
+          },
+          "XGBoost": {
+            "accuracy": 0.7837,
+            "f1": 0.4561,
+            "recall": 0.4483,
+            "precision": 0.4643,
+            "tp": 117,
+            "fp": 135,
+            "fn": 144,
+            "tn": 894,
+            "fpr": 0.1312,
+            "fnr": 0.5517
+          }
+        }
+      },
+      "49-72 months": {
+        "sample_count": 1789,
+        "churn_rate": 0.0995,
+        "actual_churners": 178,
+        "actual_non_churners": 1611,
+        "models": {
+          "LogisticRegression": {
+            "accuracy": 0.8569,
+            "f1": 0.36,
+            "recall": 0.4045,
+            "precision": 0.3243,
+            "tp": 72,
+            "fp": 150,
+            "fn": 106,
+            "tn": 1461,
+            "fpr": 0.0931,
+            "fnr": 0.5955
+          },
+          "RandomForest": {
+            "accuracy": 0.8994,
+            "f1": 0.1964,
+            "recall": 0.1236,
+            "precision": 0.4783,
+            "tp": 22,
+            "fp": 24,
+            "fn": 156,
+            "tn": 1587,
+            "fpr": 0.0149,
+            "fnr": 0.8764
+          },
+          "XGBoost": {
+            "accuracy": 0.8765,
+            "f1": 0.2754,
+            "recall": 0.236,
+            "precision": 0.3307,
+            "tp": 42,
+            "fp": 85,
+            "fn": 136,
+            "tn": 1526,
+            "fpr": 0.0528,
+            "fnr": 0.764
+          }
+        }
+      }
+    },
+    "PaymentMethod": {
+      "Electronic check": {
+        "sample_count": 1891,
+        "churn_rate": 0.4574,
+        "actual_churners": 865,
+        "actual_non_churners": 1026,
+        "models": {
+          "LogisticRegression": {
+            "accuracy": 0.6383,
+            "f1": 0.6981,
+            "recall": 0.9145,
+            "precision": 0.5646,
+            "tp": 791,
+            "fp": 610,
+            "fn": 74,
+            "tn": 416,
+            "fpr": 0.5945,
+            "fnr": 0.0855
+          },
+          "RandomForest": {
+            "accuracy": 0.6721,
+            "f1": 0.6201,
+            "recall": 0.585,
+            "precision": 0.6597,
+            "tp": 506,
+            "fp": 261,
+            "fn": 359,
+            "tn": 765,
+            "fpr": 0.2544,
+            "fnr": 0.415
+          },
+          "XGBoost": {
+            "accuracy": 0.6658,
+            "f1": 0.6677,
+            "recall": 0.7341,
+            "precision": 0.6123,
+            "tp": 635,
+            "fp": 402,
+            "fn": 230,
+            "tn": 624,
+            "fpr": 0.3918,
+            "fnr": 0.2659
+          }
+        }
+      },
+      "Mailed check": {
+        "sample_count": 1286,
+        "churn_rate": 0.1928,
+        "actual_churners": 248,
+        "actual_non_churners": 1038,
+        "models": {
+          "LogisticRegression": {
+            "accuracy": 0.7963,
+            "f1": 0.5559,
+            "recall": 0.6613,
+            "precision": 0.4795,
+            "tp": 164,
+            "fp": 178,
+            "fn": 84,
+            "tn": 860,
+            "fpr": 0.1715,
+            "fnr": 0.3387
+          },
+          "RandomForest": {
+            "accuracy": 0.8375,
+            "f1": 0.4964,
+            "recall": 0.4153,
+            "precision": 0.6168,
+            "tp": 103,
+            "fp": 64,
+            "fn": 145,
+            "tn": 974,
+            "fpr": 0.0617,
+            "fnr": 0.5847
+          },
+          "XGBoost": {
+            "accuracy": 0.8079,
+            "f1": 0.5277,
+            "recall": 0.5565,
+            "precision": 0.5018,
+            "tp": 138,
+            "fp": 137,
+            "fn": 110,
+            "tn": 901,
+            "fpr": 0.132,
+            "fnr": 0.4435
+          }
+        }
+      },
+      "Bank transfer (automatic)": {
+        "sample_count": 1244,
+        "churn_rate": 0.1616,
+        "actual_churners": 201,
+        "actual_non_churners": 1043,
+        "models": {
+          "LogisticRegression": {
+            "accuracy": 0.8047,
+            "f1": 0.5111,
+            "recall": 0.6318,
+            "precision": 0.4291,
+            "tp": 127,
+            "fp": 169,
+            "fn": 74,
+            "tn": 874,
+            "fpr": 0.162,
+            "fnr": 0.3682
+          },
+          "RandomForest": {
+            "accuracy": 0.8545,
+            "f1": 0.4026,
+            "recall": 0.3035,
+            "precision": 0.598,
+            "tp": 61,
+            "fp": 41,
+            "fn": 140,
+            "tn": 1002,
+            "fpr": 0.0393,
+            "fnr": 0.6965
+          },
+          "XGBoost": {
+            "accuracy": 0.836,
+            "f1": 0.4632,
+            "recall": 0.4378,
+            "precision": 0.4916,
+            "tp": 88,
+            "fp": 91,
+            "fn": 113,
+            "tn": 952,
+            "fpr": 0.0872,
+            "fnr": 0.5622
+          }
+        }
+      },
+      "Credit card (automatic)": {
+        "sample_count": 1213,
+        "churn_rate": 0.1492,
+        "actual_churners": 181,
+        "actual_non_churners": 1032,
+        "models": {
+          "LogisticRegression": {
+            "accuracy": 0.8104,
+            "f1": 0.4796,
+            "recall": 0.5856,
+            "precision": 0.4061,
+            "tp": 106,
+            "fp": 155,
+            "fn": 75,
+            "tn": 877,
+            "fpr": 0.1502,
+            "fnr": 0.4144
+          },
+          "RandomForest": {
+            "accuracy": 0.8541,
+            "f1": 0.3059,
+            "recall": 0.2155,
+            "precision": 0.527,
+            "tp": 39,
+            "fp": 35,
+            "fn": 142,
+            "tn": 997,
+            "fpr": 0.0339,
+            "fnr": 0.7845
+          },
+          "XGBoost": {
+            "accuracy": 0.831,
+            "f1": 0.4023,
+            "recall": 0.3812,
+            "precision": 0.4259,
+            "tp": 69,
+            "fp": 93,
+            "fn": 112,
+            "tn": 939,
+            "fpr": 0.0901,
+            "fnr": 0.6188
+          }
+        }
+      }
+    },
+    "SeniorCitizen": {
+      "0": {
+        "sample_count": 4714,
+        "churn_rate": 0.237,
+        "actual_churners": 1117,
+        "actual_non_churners": 3597,
+        "models": {
+          "LogisticRegression": {
+            "accuracy": 0.7673,
+            "f1": 0.6086,
+            "recall": 0.7637,
+            "precision": 0.5059,
+            "tp": 853,
+            "fp": 833,
+            "fn": 264,
+            "tn": 2764,
+            "fpr": 0.2316,
+            "fnr": 0.2363
+          },
+          "RandomForest": {
+            "accuracy": 0.8057,
+            "f1": 0.5239,
+            "recall": 0.4512,
+            "precision": 0.6245,
+            "tp": 504,
+            "fp": 303,
+            "fn": 613,
+            "tn": 3294,
+            "fpr": 0.0842,
+            "fnr": 0.5488
+          },
+          "XGBoost": {
+            "accuracy": 0.7857,
+            "f1": 0.5687,
+            "recall": 0.5962,
+            "precision": 0.5437,
+            "tp": 666,
+            "fp": 559,
+            "fn": 451,
+            "tn": 3038,
+            "fpr": 0.1554,
+            "fnr": 0.4038
+          }
+        }
+      },
+      "1": {
+        "sample_count": 920,
+        "churn_rate": 0.4109,
+        "actual_churners": 378,
+        "actual_non_churners": 542,
+        "models": {
+          "LogisticRegression": {
+            "accuracy": 0.65,
+            "f1": 0.6754,
+            "recall": 0.8862,
+            "precision": 0.5456,
+            "tp": 335,
+            "fp": 279,
+            "fn": 43,
+            "tn": 263,
+            "fpr": 0.5148,
+            "fnr": 0.1138
+          },
+          "RandomForest": {
+            "accuracy": 0.7054,
+            "f1": 0.6021,
+            "recall": 0.5423,
+            "precision": 0.6766,
+            "tp": 205,
+            "fp": 98,
+            "fn": 173,
+            "tn": 444,
+            "fpr": 0.1808,
+            "fnr": 0.4577
+          },
+          "XGBoost": {
+            "accuracy": 0.6978,
+            "f1": 0.6551,
+            "recall": 0.6984,
+            "precision": 0.6168,
+            "tp": 264,
+            "fp": 164,
+            "fn": 114,
+            "tn": 378,
+            "fpr": 0.3026,
+            "fnr": 0.3016
+          }
+        }
+      }
+    }
+  },
+  "prescriptions": {
+    "RandomForest": {
+      "diagnosis": "SEVERE_OVERFITTING",
+      "generalization_gap": 0.4494,
+      "primary_vulnerability": "Unconstrained tree depth grows trees until leaves are pure (Train F1 ~0.996), memorizing noise.",
+      "complexity_curve_finding": "Restricting max_depth to 6-8 drops generalization gap from 0.45 down to 0.02-0.06 while boosting validation F1 from 0.54 to 0.65.",
+      "phase_12_search_space": {
+        "model__max_depth": [
+          4,
+          5,
+          6,
+          8,
+          10
+        ],
+        "model__min_samples_leaf": [
+          2,
+          4,
+          8,
+          16
+        ],
+        "model__min_samples_split": [
+          5,
+          10,
+          20
+        ],
+        "model__max_features": [
+          "sqrt",
+          "log2",
+          0.4,
+          0.6
+        ],
+        "model__n_estimators": [
+          100,
+          200,
+          300
+        ]
+      },
+      "regularization_strategy": "Aggressive pruning via max_depth and min_samples_leaf to force tree generalization."
+    },
+    "XGBoost": {
+      "diagnosis": "SEVERE_OVERFITTING",
+      "generalization_gap": 0.3788,
+      "primary_vulnerability": "Default max_depth=6 with 200 boosting iterations overfits dense one-hot encoded interactions.",
+      "complexity_curve_finding": "max_depth=2-3 achieves optimal validation F1 (~0.64) with gap < 0.07. Depths >= 4 trigger steep overfitting.",
+      "phase_12_search_space": {
+        "model__max_depth": [
+          2,
+          3,
+          4
+        ],
+        "model__learning_rate": [
+          0.03,
+          0.05,
+          0.08,
+          0.1
+        ],
+        "model__n_estimators": [
+          100,
+          150,
+          200
+        ],
+        "model__subsample": [
+          0.6,
+          0.8,
+          1.0
+        ],
+        "model__colsample_bytree": [
+          0.6,
+          0.8,
+          1.0
+        ],
+        "model__reg_alpha": [
+          0.01,
+          0.1,
+          1.0,
+          5.0
+        ],
+        "model__reg_lambda": [
+          1.0,
+          5.0,
+          10.0,
+          20.0
+        ]
+      },
+      "regularization_strategy": "Shallow trees (max_depth 2-4) + stochastic subsampling (row/col) + L1/L2 shrinkage penalties."
+    },
+    "LogisticRegression": {
+      "diagnosis": "GOOD_FIT_HIGH_BIAS",
+      "generalization_gap": 0.0067,
+      "primary_vulnerability": "Linear capacity ceiling limits peak F1, though variance is exceptionally well controlled (gap < 0.01).",
+      "complexity_curve_finding": "C between 0.01 and 0.1 gives peak validation performance without inducing variance.",
+      "phase_12_search_space": {
+        "model__C": [
+          0.01,
+          0.05,
+          0.1,
+          0.5,
+          1.0,
+          2.0,
+          5.0
+        ],
+        "model__penalty": [
+          "l2",
+          "l1"
+        ],
+        "model__solver": [
+          "lbfgs",
+          "saga"
+        ]
+      },
+      "regularization_strategy": "Fine-tune C in [0.01, 1.0] and combine with optimal decision threshold calibration (~0.60)."
+    },
+    "DummyClassifier": {
+      "diagnosis": "EXTREME_UNDERFITTING",
+      "generalization_gap": -0.0218,
+      "primary_vulnerability": "Zero feature capacity; stratified prior guesswork.",
+      "phase_12_search_space": {},
+      "regularization_strategy": "Discard from production tuning; retain strictly as lower baseline benchmark."
+    }
+  }
+}

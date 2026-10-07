@@ -1,0 +1,62 @@
+{
+  "timestamp": "2026-10-07T09:38:19.141676+00:00",
+  "phase": 16,
+  "dvc_remote": "C:\\Users\\Abhishek\\OneDrive\\Pictures\\Desktop\\ChurnOps\\dvc_remote_storage",
+  "artifacts_tracked": 11,
+  "artifacts_skipped": 0,
+  "skipped": [],
+  "tracked": [
+    {
+      "artifact": "data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv",
+      "status": "failed"
+    },
+    {
+      "artifact": "data/interim/telco_clean.csv",
+      "status": "failed"
+    },
+    {
+      "artifact": "data/interim/telco_engineered.csv",
+      "status": "failed"
+    },
+    {
+      "artifact": "data/processed/train.csv",
+      "status": "failed"
+    },
+    {
+      "artifact": "data/processed/test.csv",
+      "status": "failed"
+    },
+    {
+      "artifact": "data/processed/cv_folds.json",
+      "status": "failed"
+    },
+    {
+      "artifact": "models/preprocessor.joblib",
+      "status": "failed"
+    },
+    {
+      "artifact": "models/tuned_xgboost.joblib",
+      "status": "failed"
+    },
+    {
+      "artifact": "models/champion_model.joblib",
+      "status": "failed"
+    },
+    {
+      "artifact": "models/champion_metadata.json",
+      "status": "failed"
+    },
+    {
+      "artifact": "models/model_card.json",
+      "status": "failed"
+    }
+  ],
+  "commands_run": 13,
+  "commands_successful": 1,
+  "push_status": "PARTIAL",
+  "notes": [
+    "DVC pipeline stages tracked in dvc.yaml (15 stages)",
+    "Raw data and model artifacts tracked as .dvc files",
+    "Swap remote URL in .dvc/config for S3/GCS production deployment"
+  ]
+}

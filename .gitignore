@@ -37,10 +37,12 @@ data/interim/*.csv
 data/processed/*.csv
 data/processed/*.parquet
 
-# Models (tracked by MLflow/DVC)
+# Models (heavy intermediate/tuned models tracked by MLflow/DVC)
 models/*.joblib
 models/*.pkl
-models/*.json
+models/versions/
+!models/champion_model.joblib
+!models/preprocessor.joblib
 
 # OS
 .DS_Store

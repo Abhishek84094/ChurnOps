@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+  # ── ChurnOps FastAPI Prediction API ────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: churnops-api
+    ports:
+      - "8000:8000"
+    environment:
+      - MLFLOW_TRACKING_URI=sqlite:///mlruns/mlflow.db
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./mlruns:/app/mlruns:ro
+      - ./models:/app/models:ro
+      - ./reports:/app/reports:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - churnops-net
+
+  # ── MLflow Tracking Server (optional, for local UI) ─────────
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.14.3
+    container_name: churnops-mlflow
+    ports:
+      - "5000:5000"
+    command: >
+      mlflow server
+        --backend-store-uri sqlite:///mlruns/mlflow.db
+        --default-artifact-root /mlruns/artifacts
+        --host 0.0.0.0
+        --port 5000
+    volumes:
+      - ./mlruns:/mlruns
+    networks:
+      - churnops-net
+    restart: unless-stopped
+
+networks:
+  churnops-net:
+    driver: bridge
+
+volumes:
+  mlruns:

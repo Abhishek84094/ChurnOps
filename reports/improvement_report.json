@@ -1,0 +1,137 @@
+{
+  "timestamp": "2026-10-06T16:41:32.953617+00:00",
+  "phase": 13,
+  "train_rows": 5634,
+  "cv_folds": 5,
+  "registry_gates": {
+    "min_f1": 0.6,
+    "min_roc_auc": 0.75,
+    "min_recall": 0.6,
+    "max_generalization_gap": 0.08
+  },
+  "models": {
+    "LogisticRegression": {
+      "default_threshold": 0.5,
+      "mean_val_f1": 0.6297,
+      "std_val_f1": 0.0213,
+      "mean_train_f1": 0.6333,
+      "generalization_gap": 0.0037,
+      "mean_roc_auc": 0.8455,
+      "mean_recall": 0.788,
+      "mean_precision": 0.5245,
+      "mean_accuracy": 0.7542,
+      "optimal_threshold": 0.58,
+      "f1_at_optimal_threshold": 0.6395,
+      "recall_at_optimal_threshold": 0.7204,
+      "precision_at_optimal_threshold": 0.575,
+      "f1_gain_from_threshold": 0.0099,
+      "gate_checks": {
+        "f1_pass": true,
+        "auc_pass": true,
+        "recall_pass": true,
+        "gap_pass": true,
+        "all_gates_pass": true
+      }
+    },
+    "RandomForest": {
+      "default_threshold": 0.5,
+      "mean_val_f1": 0.6324,
+      "std_val_f1": 0.0148,
+      "mean_train_f1": 0.69,
+      "generalization_gap": 0.0576,
+      "mean_roc_auc": 0.8473,
+      "mean_recall": 0.7726,
+      "mean_precision": 0.5356,
+      "mean_accuracy": 0.7616,
+      "optimal_threshold": 0.53,
+      "f1_at_optimal_threshold": 0.6382,
+      "recall_at_optimal_threshold": 0.7492,
+      "precision_at_optimal_threshold": 0.5558,
+      "f1_gain_from_threshold": 0.0058,
+      "gate_checks": {
+        "f1_pass": true,
+        "auc_pass": true,
+        "recall_pass": true,
+        "gap_pass": true,
+        "all_gates_pass": true
+      }
+    },
+    "XGBoost": {
+      "default_threshold": 0.5,
+      "mean_val_f1": 0.6371,
+      "std_val_f1": 0.0173,
+      "mean_train_f1": 0.6564,
+      "generalization_gap": 0.0194,
+      "mean_roc_auc": 0.8493,
+      "mean_recall": 0.7866,
+      "mean_precision": 0.5355,
+      "mean_accuracy": 0.7622,
+      "optimal_threshold": 0.48,
+      "f1_at_optimal_threshold": 0.6376,
+      "recall_at_optimal_threshold": 0.8067,
+      "precision_at_optimal_threshold": 0.5271,
+      "f1_gain_from_threshold": 0.0005,
+      "gate_checks": {
+        "f1_pass": true,
+        "auc_pass": true,
+        "recall_pass": true,
+        "gap_pass": true,
+        "all_gates_pass": true
+      }
+    },
+    "VotingClassifier": {
+      "default_threshold": 0.5,
+      "mean_val_f1": 0.6357,
+      "std_val_f1": 0.0162,
+      "mean_train_f1": 0.6635,
+      "generalization_gap": 0.0277,
+      "mean_roc_auc": 0.8503,
+      "mean_recall": 0.7799,
+      "mean_precision": 0.5369,
+      "mean_accuracy": 0.7629,
+      "optimal_threshold": 0.55,
+      "f1_at_optimal_threshold": 0.6375,
+      "recall_at_optimal_threshold": 0.7311,
+      "precision_at_optimal_threshold": 0.5651,
+      "f1_gain_from_threshold": 0.0018,
+      "gate_checks": {
+        "f1_pass": true,
+        "auc_pass": true,
+        "recall_pass": true,
+        "gap_pass": true,
+        "all_gates_pass": true
+      }
+    },
+    "StackingClassifier": {
+      "default_threshold": 0.5,
+      "mean_val_f1": 0.6025,
+      "std_val_f1": 0.0248,
+      "mean_train_f1": 0.6315,
+      "generalization_gap": 0.029,
+      "mean_roc_auc": 0.8503,
+      "mean_recall": 0.5579,
+      "mean_precision": 0.656,
+      "mean_accuracy": 0.8048,
+      "optimal_threshold": 0.29,
+      "f1_at_optimal_threshold": 0.6378,
+      "recall_at_optimal_threshold": 0.7739,
+      "precision_at_optimal_threshold": 0.5424,
+      "f1_gain_from_threshold": 0.0353,
+      "gate_checks": {
+        "f1_pass": true,
+        "auc_pass": true,
+        "recall_pass": false,
+        "gap_pass": true,
+        "all_gates_pass": false
+      }
+    }
+  },
+  "champion_candidate": {
+    "model_name": "LogisticRegression",
+    "optimal_threshold": 0.58,
+    "f1_at_optimal": 0.6395,
+    "roc_auc": 0.8455,
+    "recall": 0.7204,
+    "gap": 0.0037
+  }
+}

@@ -1,0 +1,9 @@
+[core]
+    remote = local_remote
+['remote "local_remote"']
+    url = dvc_remote_storage
+# ─── Production alternatives ─────────────────────────────
+# AWS S3:     url = s3://your-bucket/churnops-dvc
+# GCS:        url = gs://your-bucket/churnops-dvc
+# Azure:      url = azure://your-container/churnops-dvc
+# SSH remote: url = ssh://user@host/path/to/remote

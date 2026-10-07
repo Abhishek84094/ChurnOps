@@ -1,0 +1,155 @@
+{
+  "schema_version": "1.0",
+  "model_name": "ChurnOps_Champion_XGBoost",
+  "input_features": {
+    "SeniorCitizen": {
+      "type": "integer",
+      "values": [
+        0,
+        1
+      ],
+      "description": "Is senior citizen"
+    },
+    "Partner": {
+      "type": "string",
+      "values": [
+        "Yes",
+        "No"
+      ]
+    },
+    "Dependents": {
+      "type": "string",
+      "values": [
+        "Yes",
+        "No"
+      ]
+    },
+    "tenure": {
+      "type": "integer",
+      "range": [
+        0,
+        72
+      ],
+      "description": "Months with company"
+    },
+    "MultipleLines": {
+      "type": "string",
+      "values": [
+        "No phone service",
+        "No",
+        "Yes"
+      ]
+    },
+    "InternetService": {
+      "type": "string",
+      "values": [
+        "DSL",
+        "Fiber optic",
+        "No"
+      ]
+    },
+    "OnlineSecurity": {
+      "type": "string",
+      "values": [
+        "No internet service",
+        "No",
+        "Yes"
+      ]
+    },
+    "OnlineBackup": {
+      "type": "string",
+      "values": [
+        "No internet service",
+        "No",
+        "Yes"
+      ]
+    },
+    "DeviceProtection": {
+      "type": "string",
+      "values": [
+        "No internet service",
+        "No",
+        "Yes"
+      ]
+    },
+    "TechSupport": {
+      "type": "string",
+      "values": [
+        "No internet service",
+        "No",
+        "Yes"
+      ]
+    },
+    "StreamingTV": {
+      "type": "string",
+      "values": [
+        "No internet service",
+        "No",
+        "Yes"
+      ]
+    },
+    "StreamingMovies": {
+      "type": "string",
+      "values": [
+        "No internet service",
+        "No",
+        "Yes"
+      ]
+    },
+    "Contract": {
+      "type": "string",
+      "values": [
+        "Month-to-month",
+        "One year",
+        "Two year"
+      ]
+    },
+    "PaperlessBilling": {
+      "type": "string",
+      "values": [
+        "Yes",
+        "No"
+      ]
+    },
+    "PaymentMethod": {
+      "type": "string",
+      "values": [
+        "Electronic check",
+        "Mailed check",
+        "Bank transfer (automatic)",
+        "Credit card (automatic)"
+      ]
+    },
+    "MonthlyCharges": {
+      "type": "float",
+      "range": [
+        18.25,
+        118.75
+      ],
+      "description": "USD per month"
+    },
+    "TotalCharges": {
+      "type": "float",
+      "range": [
+        0.0,
+        8684.8
+      ],
+      "description": "Total USD charged"
+    }
+  },
+  "dropped_features": [
+    "customerID",
+    "gender",
+    "PhoneService"
+  ],
+  "target_column": "Churn",
+  "target_values": {
+    "0": "No churn",
+    "1": "Churn"
+  },
+  "optimal_threshold": 0.48,
+  "output": {
+    "churn_probability": "float [0, 1] \u2014 probability of churn",
+    "churn_prediction": "int {0, 1} \u2014 1 if probability >= optimal_threshold"
+  }
+}

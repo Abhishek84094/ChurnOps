@@ -1,0 +1,381 @@
+{
+  "timestamp": "2026-10-06T17:05:07.352448+00:00",
+  "phase": 18,
+  "elapsed_seconds": 0.01,
+  "pipeline_spec": {
+    "pipeline_name": "churnops_training_pipeline",
+    "pipeline_description": "End-to-end MLOps training pipeline for Telco Churn prediction",
+    "pipeline_version": "1.0.0",
+    "total_components": 10,
+    "dag_edges": [
+      {
+        "from": "ingest_data",
+        "to": "validate_data"
+      },
+      {
+        "from": "validate_data",
+        "to": "clean_data"
+      },
+      {
+        "from": "clean_data",
+        "to": "engineer_features"
+      },
+      {
+        "from": "clean_data",
+        "to": "split_data"
+      },
+      {
+        "from": "engineer_features",
+        "to": "preprocess"
+      },
+      {
+        "from": "split_data",
+        "to": "preprocess"
+      },
+      {
+        "from": "split_data",
+        "to": "train_baseline"
+      },
+      {
+        "from": "preprocess",
+        "to": "train_baseline"
+      },
+      {
+        "from": "train_baseline",
+        "to": "hyperparameter_optimization"
+      },
+      {
+        "from": "hyperparameter_optimization",
+        "to": "evaluate_champion"
+      },
+      {
+        "from": "evaluate_champion",
+        "to": "track_mlflow"
+      }
+    ],
+    "parallelizable_stages": [
+      "engineer_features and split_data can run in parallel after clean_data",
+      "cross_validate and diagnose can run in parallel after train_baseline"
+    ],
+    "estimated_runtime": {
+      "single_cpu": "~45 minutes",
+      "kubernetes_4cpu": "~12 minutes",
+      "kubernetes_8cpu": "~7 minutes"
+    }
+  },
+  "components": [
+    {
+      "name": "ingest_data",
+      "phase": 1,
+      "description": "Load raw CSV, compute SHA-256 hash, emit dataset metadata.",
+      "inputs": [
+        {
+          "name": "raw_data_path",
+          "type": "String"
+        },
+        {
+          "name": "random_state",
+          "type": "Integer"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "metadata_path",
+          "type": "Dataset"
+        }
+      ],
+      "cmd": "python src/data/ingestion.py",
+      "resources": {
+        "cpu": "0.5",
+        "memory": "512Mi"
+      }
+    },
+    {
+      "name": "validate_data",
+      "phase": 2,
+      "description": "Schema validation, duplicate check, class balance check.",
+      "inputs": [
+        {
+          "name": "raw_data_path",
+          "type": "String"
+        },
+        {
+          "name": "metadata_path",
+          "type": "Dataset"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "validation_report_path",
+          "type": "Dataset"
+        }
+      ],
+      "cmd": "python src/data/validation.py",
+      "resources": {
+        "cpu": "0.5",
+        "memory": "512Mi"
+      }
+    },
+    {
+      "name": "clean_data",
+      "phase": 4,
+      "description": "Deterministic imputation, target encoding, customerID drop.",
+      "inputs": [
+        {
+          "name": "raw_data_path",
+          "type": "String"
+        },
+        {
+          "name": "validation_report_path",
+          "type": "Dataset"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "clean_data_path",
+          "type": "Dataset"
+        },
+        {
+          "name": "cleaning_log_path",
+          "type": "Dataset"
+        }
+      ],
+      "cmd": "python src/data/cleaning.py",
+      "resources": {
+        "cpu": "0.5",
+        "memory": "512Mi"
+      }
+    },
+    {
+      "name": "engineer_features",
+      "phase": 5,
+      "description": "Apply DomainFeatureEngineer to compute 7 domain features.",
+      "inputs": [
+        {
+          "name": "clean_data_path",
+          "type": "Dataset"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "engineered_data_path",
+          "type": "Dataset"
+        },
+        {
+          "name": "feature_report_path",
+          "type": "Dataset"
+        }
+      ],
+      "cmd": "python src/features/engineering.py",
+      "resources": {
+        "cpu": "1",
+        "memory": "1Gi"
+      }
+    },
+    {
+      "name": "split_data",
+      "phase": 7,
+      "description": "Stratified 80/20 train/test split with 5-fold CV indices.",
+      "inputs": [
+        {
+          "name": "clean_data_path",
+          "type": "Dataset"
+        },
+        {
+          "name": "test_size",
+          "type": "Float"
+        },
+        {
+          "name": "random_state",
+          "type": "Integer"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "train_path",
+          "type": "Dataset"
+        },
+        {
+          "name": "test_path",
+          "type": "Dataset"
+        },
+        {
+          "name": "cv_folds_path",
+          "type": "Dataset"
+        }
+      ],
+      "cmd": "python src/data/split.py",
+      "resources": {
+        "cpu": "0.5",
+        "memory": "512Mi"
+      }
+    },
+    {
+      "name": "preprocess",
+      "phase": 8,
+      "description": "Fit ColumnTransformer on train only; serialize preprocessor.joblib.",
+      "inputs": [
+        {
+          "name": "train_path",
+          "type": "Dataset"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "preprocessor_path",
+          "type": "Model"
+        },
+        {
+          "name": "preprocessing_report_path",
+          "type": "Dataset"
+        }
+      ],
+      "cmd": "python src/data/preprocessing.py",
+      "resources": {
+        "cpu": "1",
+        "memory": "1Gi"
+      }
+    },
+    {
+      "name": "train_baseline",
+      "phase": 9,
+      "description": "5-fold CV evaluation of Dummy, LR, RF, XGBoost baselines.",
+      "inputs": [
+        {
+          "name": "train_path",
+          "type": "Dataset"
+        },
+        {
+          "name": "cv_folds_path",
+          "type": "Dataset"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "baseline_cv_results_path",
+          "type": "Dataset"
+        },
+        {
+          "name": "baseline_summary_path",
+          "type": "Dataset"
+        }
+      ],
+      "cmd": "python src/models/train.py",
+      "resources": {
+        "cpu": "4",
+        "memory": "4Gi"
+      }
+    },
+    {
+      "name": "hyperparameter_optimization",
+      "phase": 12,
+      "description": "RandomizedSearchCV (n_iter=30) for LR, RF, XGBoost.",
+      "inputs": [
+        {
+          "name": "train_path",
+          "type": "Dataset"
+        },
+        {
+          "name": "cv_folds_path",
+          "type": "Dataset"
+        },
+        {
+          "name": "diagnosis_report_path",
+          "type": "Dataset"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "tuned_lr_path",
+          "type": "Model"
+        },
+        {
+          "name": "tuned_rf_path",
+          "type": "Model"
+        },
+        {
+          "name": "tuned_xgb_path",
+          "type": "Model"
+        },
+        {
+          "name": "tuning_report_path",
+          "type": "Dataset"
+        }
+      ],
+      "cmd": "python src/models/tune.py",
+      "resources": {
+        "cpu": "8",
+        "memory": "8Gi"
+      }
+    },
+    {
+      "name": "evaluate_champion",
+      "phase": 14,
+      "description": "First and only unlock of test.csv; evaluate champion XGBoost.",
+      "inputs": [
+        {
+          "name": "test_path",
+          "type": "Dataset"
+        },
+        {
+          "name": "tuned_xgb_path",
+          "type": "Model"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "champion_model_path",
+          "type": "Model"
+        },
+        {
+          "name": "champion_metadata_path",
+          "type": "Dataset"
+        },
+        {
+          "name": "evaluation_report_path",
+          "type": "Dataset"
+        }
+      ],
+      "cmd": "python src/models/evaluate.py",
+      "resources": {
+        "cpu": "2",
+        "memory": "2Gi"
+      }
+    },
+    {
+      "name": "track_mlflow",
+      "phase": 15,
+      "description": "Log all 10 experiment runs to MLflow with metrics and artifacts.",
+      "inputs": [
+        {
+          "name": "champion_model_path",
+          "type": "Model"
+        },
+        {
+          "name": "evaluation_report_path",
+          "type": "Dataset"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mlflow_summary_path",
+          "type": "Dataset"
+        }
+      ],
+      "cmd": "python src/models/track_mlflow.py",
+      "resources": {
+        "cpu": "1",
+        "memory": "1Gi"
+      }
+    }
+  ],
+  "artifacts": {
+    "kubeflow_pipeline_yaml": "deploy/kubeflow_pipeline.yaml"
+  },
+  "summary": {
+    "total_components": 10,
+    "total_dag_edges": 11,
+    "estimated_runtime_kubernetes": "~12 minutes",
+    "target_platform": "Vertex AI Pipelines (GCP) / Kubeflow Pipelines"
+  }
+}

@@ -1,0 +1,13 @@
+# ChurnOps Feast Feature Store Configuration
+# Phase 19 — Feature Store Setup
+# Generated: 2026-10-06T17:06:58.269165+00:00
+
+project: churnops
+registry: data/registry.db
+provider: local
+online_store:
+  type: sqlite
+  path: data/online_store.db
+offline_store:
+  type: file
+entity_key_serialization_version: 2

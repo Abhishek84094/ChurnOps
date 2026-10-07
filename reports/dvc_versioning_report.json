@@ -1,0 +1,122 @@
+{
+  "timestamp": "2026-10-06T17:03:02.896246+00:00",
+  "phase": 16,
+  "elapsed_seconds": 9.57,
+  "dvc_init": {
+    "dvc_dir_exists": true,
+    "status": "already_initialized"
+  },
+  "remote_config": {
+    "remote_name": "local_remote",
+    "remote_path": "C:\\Users\\Abhishek\\OneDrive\\Pictures\\Desktop\\ChurnOps\\dvc_remote_storage",
+    "configured": true
+  },
+  "file_catalog": [
+    {
+      "file": "data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv",
+      "size_bytes": 977501,
+      "size_kb": 954.59,
+      "sha256_prefix": "88be4b93fbe0cc83",
+      "sha256_full": "88be4b93fbe0cc83421af1c503794c97c342eca914c1576db7c276e61d61358a",
+      "exists": true
+    },
+    {
+      "file": "data/interim/telco_clean.csv",
+      "size_bytes": 892559,
+      "size_kb": 871.64,
+      "sha256_prefix": "bf49c0772e8aadde",
+      "sha256_full": "bf49c0772e8aaddecfb9e6e2fa1ae393af57a740ca59677252f6ae49b9f831cc",
+      "exists": true
+    },
+    {
+      "file": "data/interim/telco_engineered.csv",
+      "size_bytes": 1026687,
+      "size_kb": 1002.62,
+      "sha256_prefix": "d50388379c0b9969",
+      "sha256_full": "d50388379c0b99698557f8ffbf1cbb2d7836754a448861c7505df84db5112696",
+      "exists": true
+    },
+    {
+      "file": "data/processed/test.csv",
+      "size_bytes": 178939,
+      "size_kb": 174.75,
+      "sha256_prefix": "7618c28e471e6a2b",
+      "sha256_full": "7618c28e471e6a2b276a2e498167f205dfa0924d4466ee564fedbb4d17f22d42",
+      "exists": true
+    },
+    {
+      "file": "data/processed/train.csv",
+      "size_bytes": 713870,
+      "size_kb": 697.14,
+      "sha256_prefix": "85ca021c4fcbdfa2",
+      "sha256_full": "85ca021c4fcbdfa232b1b8d48a4f6cf3a9b771c9cfeb940d102785735e8f5792",
+      "exists": true
+    },
+    {
+      "file": "data/processed/cv_folds.json",
+      "size_bytes": 163710,
+      "size_kb": 159.87,
+      "sha256_prefix": "6a7dc2917aec1da4",
+      "sha256_full": "6a7dc2917aec1da4e676589f1f25aa81d64e5e29570b07cdb1d403f39bc9b229",
+      "exists": true
+    },
+    {
+      "file": "models/preprocessor.joblib",
+      "size_bytes": 9748,
+      "size_kb": 9.52,
+      "sha256_prefix": "a9246df2baf4bb9f",
+      "sha256_full": "a9246df2baf4bb9f28c88f1aab68fa9667b6664ab6f43e4d4cf0fa9f50aefee0",
+      "exists": true
+    },
+    {
+      "file": "models/champion_model.joblib",
+      "size_bytes": 192992,
+      "size_kb": 188.47,
+      "sha256_prefix": "eb464a72c640e0d7",
+      "sha256_full": "eb464a72c640e0d7312b331c97d60e799a6b4169c69b4a7e5fd905ab0091c9fd",
+      "exists": true
+    },
+    {
+      "file": "models/champion_metadata.json",
+      "size_bytes": 626,
+      "size_kb": 0.61,
+      "sha256_prefix": "3ac663c0e06fb59a",
+      "sha256_full": "3ac663c0e06fb59a155a8fa785910e8dc2a3234e5c88132bd307d7c1f4672e73",
+      "exists": true
+    },
+    {
+      "file": "models/tuned_xgboost.joblib",
+      "size_bytes": 192348,
+      "size_kb": 187.84,
+      "sha256_prefix": "e3085ada8599cf10",
+      "sha256_full": "e3085ada8599cf109d5b997d4b3c5592d9e43f40814e34ef462c79e510b864c9",
+      "exists": true
+    }
+  ],
+  "dvc_add_results": [
+    {
+      "file": "data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv",
+      "dvc_add": "failed",
+      "note": "ERROR: unexpected error - cannot import name '_DIR_MARK' from 'pathspec.patterns.gitwildmatch' (C:\\Users\\Abhishek\\OneDrive\\Pictures\\Desktop\\ChurnOps\\.venv\\lib\\site-packages\\pathspec\\patterns\\gitwildma"
+    },
+    {
+      "file": "data/interim/telco_clean.csv",
+      "dvc_add": "failed",
+      "note": "ERROR: unexpected error - cannot import name '_DIR_MARK' from 'pathspec.patterns.gitwildmatch' (C:\\Users\\Abhishek\\OneDrive\\Pictures\\Desktop\\ChurnOps\\.venv\\lib\\site-packages\\pathspec\\patterns\\gitwildma"
+    },
+    {
+      "file": "data/interim/telco_engineered.csv",
+      "dvc_add": "failed",
+      "note": "ERROR: unexpected error - cannot import name '_DIR_MARK' from 'pathspec.patterns.gitwildmatch' (C:\\Users\\Abhishek\\OneDrive\\Pictures\\Desktop\\ChurnOps\\.venv\\lib\\site-packages\\pathspec\\patterns\\gitwildma"
+    }
+  ],
+  "pipeline_status": {
+    "status": "check_failed",
+    "stderr": "ERROR: unexpected error - cannot import name '_DIR_MARK' from 'pathspec.patterns.gitwildmatch' (C:\\Users\\Abhishek\\OneDrive\\Pictures\\Desktop\\ChurnOps\\.venv\\lib\\site-packages\\pathspec\\patterns\\gitwildmatch.py)\n\nHaving any troubles? Hit us up at https://dvc.org/support, we are always happy to help!\n"
+  },
+  "summary": {
+    "total_files_catalogued": 10,
+    "total_size_mb": 4.15,
+    "dvc_tracked_files": 0
+  }
+}

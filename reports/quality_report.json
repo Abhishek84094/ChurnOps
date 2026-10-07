@@ -1,0 +1,52 @@
+{
+  "timestamp": "2026-10-07T09:25:30.100487+00:00",
+  "phase": 24,
+  "samples_evaluated": 1409,
+  "score_statistics": {
+    "count": 1409,
+    "mean": 0.3939,
+    "std": 0.3015,
+    "min": 0.0104,
+    "max": 0.9627,
+    "p25": 0.0958,
+    "p50": 0.3392,
+    "p75": 0.6719,
+    "high_risk_rate": 0.4095
+  },
+  "performance_metrics": {
+    "roc_auc": 0.8491,
+    "brier_score": 0.1572,
+    "f1_score": 0.6267,
+    "recall": 0.7968,
+    "calibration": {
+      "fraction_positives": [
+        0.0342,
+        0.1888,
+        0.2488,
+        0.4783,
+        0.7558
+      ],
+      "mean_predicted_values": [
+        0.0774,
+        0.2912,
+        0.5064,
+        0.7032,
+        0.8749
+      ]
+    }
+  },
+  "alerts": [
+    {
+      "level": "WARNING",
+      "type": "HIGH_CHURN_RATE",
+      "message": "Predicted churn rate 40.9% exceeds threshold 40.0%. Investigate business conditions."
+    },
+    {
+      "level": "WARNING",
+      "type": "SCORE_DISTRIBUTION_SHIFT",
+      "message": "Mean predicted probability shifted by 0.128 (ref: 0.265, current: 0.394). Consider retraining."
+    }
+  ],
+  "alert_count": 2,
+  "status": "ALERT"
+}

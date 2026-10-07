@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-10-07T09:24:18.592193+00:00",
+  "phase": 20,
+  "champion_run_name": "Champion_Tuned_XGBoost",
+  "run_id": "3eccb55b855d4d6f8798617de83ab2aa",
+  "registered_model_name": "ChurnOps_Champion",
+  "champion_model_path": "C:\\Users\\Abhishek\\OneDrive\\Pictures\\Desktop\\ChurnOps\\models\\champion_model.joblib",
+  "gate_status": "PASS",
+  "gate_details": {
+    "test_roc_auc": {
+      "value": 0.8491,
+      "threshold": 0.75,
+      "pass": true
+    },
+    "test_f1": {
+      "value": 0.6289,
+      "threshold": 0.6,
+      "pass": true
+    },
+    "test_recall": {
+      "value": 0.7861,
+      "threshold": 0.6,
+      "pass": true
+    },
+    "cv_gap": {
+      "value": 0.0194,
+      "threshold": 0.08,
+      "pass": true
+    }
+  },
+  "metrics": {
+    "test_roc_auc": 0.8491,
+    "test_f1": 0.6289,
+    "test_recall": 0.7861,
+    "cv_gap": 0.0194
+  },
+  "deployment_notes": "Champion model is production-ready. Deploy via FastAPI (Phase 22) or Docker (Phase 27).",
+  "registered": true,
+  "model_name": "ChurnOps_Champion",
+  "version": 2
+}

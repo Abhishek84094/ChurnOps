@@ -1,0 +1,34 @@
+{
+  "model_version": "20261007_092146",
+  "endpoint": "/predict",
+  "method": "POST",
+  "content_type": "application/json",
+  "input_example": {
+    "gender": "Male",
+    "SeniorCitizen": 0,
+    "Partner": "Yes",
+    "Dependents": "No",
+    "tenure": 12,
+    "PhoneService": "Yes",
+    "MultipleLines": "No",
+    "InternetService": "Fiber optic",
+    "OnlineSecurity": "No",
+    "OnlineBackup": "No",
+    "DeviceProtection": "No",
+    "TechSupport": "No",
+    "StreamingTV": "No",
+    "StreamingMovies": "No",
+    "Contract": "Month-to-month",
+    "PaperlessBilling": "Yes",
+    "PaymentMethod": "Electronic check",
+    "MonthlyCharges": 79.85,
+    "TotalCharges": 958.2
+  },
+  "output_example": {
+    "customer_id": "SAMPLE-001",
+    "churn_probability": 0.74,
+    "churn_prediction": 1,
+    "risk_label": "High Risk",
+    "model_version": "20261007_092146"
+  }
+}

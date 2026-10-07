@@ -1,0 +1,86 @@
+{
+  "timestamp": "2026-10-06T17:06:58.269165+00:00",
+  "phase": 19,
+  "elapsed_seconds": 6.34,
+  "feast_available": true,
+  "feature_repo_files": {
+    "feature_store_yaml": "feature_repo/feature_store.yaml",
+    "churn_features_py": "feature_repo/churn_features.py"
+  },
+  "feature_views": [
+    {
+      "view_name": "customer_demographics",
+      "entity": "customer_id",
+      "features": [
+        "SeniorCitizen",
+        "tenure",
+        "Partner",
+        "Dependents"
+      ],
+      "ttl_days": 90,
+      "domain": "demographics"
+    },
+    {
+      "view_name": "customer_services",
+      "entity": "customer_id",
+      "features": [
+        "PhoneService",
+        "MultipleLines",
+        "InternetService",
+        "OnlineSecurity",
+        "OnlineBackup",
+        "DeviceProtection",
+        "TechSupport",
+        "StreamingTV",
+        "StreamingMovies"
+      ],
+      "ttl_days": 90,
+      "domain": "services"
+    },
+    {
+      "view_name": "customer_billing",
+      "entity": "customer_id",
+      "features": [
+        "Contract",
+        "PaperlessBilling",
+        "PaymentMethod",
+        "MonthlyCharges",
+        "TotalCharges"
+      ],
+      "ttl_days": 30,
+      "domain": "billing"
+    },
+    {
+      "view_name": "customer_engineered",
+      "entity": "customer_id",
+      "features": [
+        "tenure_cohort",
+        "total_services",
+        "is_auto_pay",
+        "has_fiber_optic",
+        "has_security_or_techsupport",
+        "has_family",
+        "is_month_to_month"
+      ],
+      "ttl_days": 90,
+      "domain": "engineered"
+    }
+  ],
+  "feast_apply": {
+    "status": "failed",
+    "stderr": "C:\\Users\\Abhishek\\OneDrive\\Pictures\\Desktop\\ChurnOps\\.venv\\Scripts\\python.exe: No module named feast.__main__; 'feast' is a package and cannot be directly executed\n",
+    "note": "Check feature_repo config"
+  },
+  "summary": {
+    "total_feature_views": 4,
+    "total_features": 25,
+    "entity": "customer_id",
+    "online_store": "sqlite",
+    "offline_store": "file (parquet)",
+    "feature_service": "churn_prediction_v1",
+    "files_generated": [
+      "feature_repo/feature_store.yaml",
+      "feature_repo/churn_features.py"
+    ]
+  }
+}
